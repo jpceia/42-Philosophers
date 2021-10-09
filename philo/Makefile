@@ -10,8 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-LIBFTDIR	= ./libft
-LIBFT		= $(LIBFTDIR)/libft.a
+NAME		= philo
 
 INC_DIR		= .
 
@@ -24,9 +23,10 @@ OBJS		= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 CC			= gcc
 RM			= rm -f
 
-NAME		= philosophers
+FLAG_WARN	= -Wall -Wextra
 
-CFLAGS		= -Wall -Wextra -pthread -I$(INC_DIR) -I$(LIBFTDIR)
+CFLAGS		=  $(FLAG_WANR) -I$(INC_DIR) -pthread
+LDFLAGS		= -pthread
 
 all:		$(NAME)
 
@@ -34,18 +34,13 @@ $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
 			@mkdir -p $(dir $@)
 			$(CC) $(CFLAGS) -c $< -o $@
 
-$(LIBFT):
-			$(MAKE) -C $(LIBFTDIR)
-
-$(NAME):	$(OBJS) $(LIBFT)
-			$(CC) $(CFLAGS) $^ -o $@
+$(NAME):	$(OBJS)
+			$(CC) $^ -o $@ $(LDFLAGS)
 
 clean:
-			$(MAKE) -C $(LIBFTDIR) clean
-			$(RM) -r $(OBJDIR)
+			$(RM) -r $(OBJ_DIR)
 
 fclean:		clean
-			$(MAKE) -C $(LIBFTDIR) fclean
 			$(RM) $(NAME)
 
 re:			fclean all
