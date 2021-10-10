@@ -6,7 +6,7 @@
 #    By: jceia <jceia@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/30 04:53:35 by jceia             #+#    #+#              #
-#    Updated: 2021/09/26 02:15:00 by jceia            ###   ########.fr        #
+#    Updated: 2021/10/09 21:31:09 by jceia            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,8 @@ RM			= rm -f
 
 FLAG_WARN	= -Wall -Wextra
 
-CFLAGS		=  $(FLAG_WANR) -I$(INC_DIR) -pthread
-LDFLAGS		= -pthread
+CFLAGS		=  $(FLAG_WANR) -I$(INC_DIR) -pthread -g
+LDFLAGS		= -pthread -g
 
 all:		$(NAME)
 

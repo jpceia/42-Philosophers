@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 18:20:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/09/26 02:16:04 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/10 06:07:04 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <pthread.h>
-#include <sys/time.h>
 #include <string.h>
 
 #include "philosophers.h"
@@ -34,25 +33,46 @@
  * 		sleeping.
  */
 
+/*
+ * Allowed functions
+ * memset
+ * printf
+ * malloc
+ * free
+ * write
+ * usleep
+ * gettimeofday
+ * pthreat:
+ * 		pthread_create
+ * 		pthread_detach
+ * 		pthread_join
+ * mutex
+ * 		pthread_mutex_init
+ * 		pthread_mutex_destroy
+ * 		pthread_mutex_lock
+ * 		pthread_mutex_unlock
+ */
 
-int	main(int argc, char **argv)
+int	main(int argc, char *argv[])
 {
 	int			index;
 	t_args		args;
 	t_shared	shared;
-	t_data		*data;
 	pthread_t	*thread;
 
-	args_init(&args, argc, argv);
-	shared_init(&shared, args.nb_philosophers);
-	threads_init(&thread, data, &shared, &args);
-	index = 0;
-	while (index < args.nb_philosophers)
+	parse_args(&args, argc, argv);
+	if (shared_init(&shared, args.nb_philo) < 0)
 	{
-		pthread_join(thread[index++], (void *)data);
-		free(data);
+		perror("Error initializing variable");
+		shared_clean(&shared);
+		return (EXIT_FAILURE);
 	}
-	free(thread);
+	if (threads_init(&thread, &shared, &args) < 0)
+	{
+		perror("Error initializing threads");
+		do_stop(&shared);
+	}
+	threads_join(thread, args.nb_philo);
 	shared_clean(&shared);
 	return (EXIT_SUCCESS);
 }

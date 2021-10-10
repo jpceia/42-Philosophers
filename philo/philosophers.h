@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 23:38:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/09/26 02:16:49 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/10 06:20:30 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,60 +21,84 @@ typedef enum e_bool
 	true
 }	t_bool;
 
-typedef	enum e_state
+typedef enum e_state
 {
 	THINK = 0,
 	EAT,
 	SLEEP,
+	SATISFIED,
 	DEAD,
 }	t_state;
 
 typedef struct s_shared
 {
-	pthread_cond_t	cond;
-	pthread_mutex_t	mutex;
-	t_bool			*forks;
-	t_bool			any_dead;
-	long			ts_start;
-	int				nb_philosophers;
-}   t_shared;
+	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	stop_mutex;
+	pthread_mutex_t	*forks;
+	int				nb_philo;
+	long			start_time;
+	t_bool			stop;
+}	t_shared;
 
 typedef struct s_args
 {
-	int		nb_philosophers;
+	int		nb_philo;
 	int		position;
 	int		time_to_die;
 	int		time_to_eat;
 	int		time_to_sleep;
-	int		nb_eats;
+	int		max_meals;
 }	t_args;
 
 typedef struct s_data
 {
-    t_shared	*shared;
+	t_shared	*shared;
 
 	int			position;
 	int			time_to_die;
 	int			time_to_sleep;
 	int			time_to_eat;
-	int			nb_eats;
+	int			nb_meals;
+	int			max_meals;
 
-	long	last_meal;
-	t_bool	dead;
+	long		last_meal;
 }	t_data;
 
-void	shared_init(t_shared *shared, int nb_philosophers);
-void	data_init(t_data **data, t_shared *shared,
-		const t_args *args, int position);
-void	args_init(t_args *args, int argc, char **argv);
-void	threads_init(pthread_t **t, t_data *data, t_shared *shared, t_args *args);
-void	shared_clean(t_shared *shared);
+/*
+ * Utils
+ */
+int				ft_atoi(const char *str);
+t_args			*parse_args(t_args *args, int argc, char **argv);
+long			get_chrono(long start_time);
+void			print_action(t_data *data, t_state state);
 
-void	forks_lock(t_data *data);
-void	forks_unlock(t_data *data);
-t_bool	forks_avail(const t_data *data);
+/*
+ * Actions
+ */
+void			do_stop(t_shared *shared);
+void			do_dead(t_data *data);
+t_bool			try_eat(t_data *data);
+void			do_think(t_data *data);
+void			do_sleep(t_data *data);
 
-long	get_ts_milliseconds(long ts_start);
-void	*philosopher_routine(void *ptr);
+void			*routine(void *ptr);
+
+/*
+ * Data Allocation
+ */
+
+pthread_mutex_t	*mutex_array_init(pthread_mutex_t *arr, int size);
+void			mutex_array_destroy(pthread_mutex_t *arr, int size);
+
+t_shared		*shared_init(t_shared *shared, int nb_philo);
+void			shared_clean(t_shared *shared);
+
+t_data			*data_init(t_data **data, t_shared *shared,
+					const t_args *args, int position);
+
+pthread_t		*threads_init(pthread_t **threads,
+					t_shared *shared, t_args *args);
+
+void			threads_join(pthread_t *threads, int size);
 
 #endif
