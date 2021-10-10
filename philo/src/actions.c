@@ -48,8 +48,8 @@ t_bool	try_eat(t_data *data)
 	usleep(data->time_to_sleep * 1000);
 	data->last_meal = get_chrono(data->shared->start_time);
 	data->nb_meals++;
-	pthread_mutex_unlock(&data->shared->forks[left_fork_index]);
 	pthread_mutex_unlock(&data->shared->forks[right_fork_index]);
+	pthread_mutex_unlock(&data->shared->forks[left_fork_index]);
 	return (true);
 }
 
