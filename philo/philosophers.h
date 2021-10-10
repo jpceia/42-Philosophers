@@ -81,7 +81,7 @@ void			*routine(void *ptr);
  * Data Allocation
  */
 
-pthread_mutex_t	*mutex_array_init(pthread_mutex_t *arr, int size);
+pthread_mutex_t	*mutex_array_init(pthread_mutex_t **arr, int size);
 void			mutex_array_destroy(pthread_mutex_t *arr, int size);
 
 t_shared		*shared_init(t_shared *shared, int nb_philo);
