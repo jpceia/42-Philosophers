@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 20:25:20 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/10 07:18:25 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/10 16:40:45 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,18 @@ void	print_action(t_data *data, t_state state)
 {
 	long	t;
 	char	*s;
+	char	msg[BUF_SIZE];
 
 	t = get_chrono(data->shared->start_time);
+	msg[0] = '\0';
+	s = ft_itoa((int)t);
+	ft_strlcat(msg, s, BUF_SIZE);
+	free(s);
+	ft_strlcat(msg, "\tphilosopher ", BUF_SIZE);
+	s = ft_itoa(data->position);
+	ft_strlcat(msg, s, BUF_SIZE);
+	free(s);
+	ft_strlcat(msg, "\t", BUF_SIZE);
 	if (state == TAKE_FORK)
 		s = "has taken a fork";
 	else if (state == EAT)
@@ -60,6 +70,11 @@ void	print_action(t_data *data, t_state state)
 		s = "died";
 	else
 		s = "(unkown action)";
-	// pthread_mutex_lock(&data->shared->print_mutex);
-	// pthread_mutex_unlock(&data->shared->print_mutex);
+	ft_strlcat(msg, s, BUF_SIZE);
+	ft_strlcat(msg, " ", BUF_SIZE);
+	s = ft_itoa(data->shared->nb_satisfied);
+	ft_strlcat(msg, s, BUF_SIZE);
+	free(s);
+	ft_strlcat(msg, "\n", BUF_SIZE);
+	ft_putstr(msg);
 }
