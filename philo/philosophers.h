@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 23:38:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/10 07:06:35 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/10 13:35:54 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ typedef struct s_data
 /*
  * Utils
  */
-int				ft_atoi(const char *str);
 t_args			*parse_args(t_args *args, int argc, char **argv);
 long			get_chrono(long start_time);
 void			print_action(t_data *data, t_state state);
