@@ -18,6 +18,7 @@
 
 t_shared	*shared_init(t_shared *shared, int nb_philo)
 {
+	memset(shared, 0, sizeof(*shared));
 	shared->nb_philo = nb_philo;
 	shared->start_time = get_chrono(0);
 	shared->stop = false;
@@ -53,10 +54,9 @@ t_data	*data_init(t_data **data, t_shared *shared,
 		shared_clean(shared);
 		exit(EXIT_FAILURE);
 	}
+	memset(*data, 0, sizeof(**data));
 	(*data)->shared = shared;
 	(*data)->position = position;
-	(*data)->last_meal = 0;
-	(*data)->nb_meals = 0;
 	(*data)->max_meals = args->max_meals;
 	(*data)->time_to_die = args->time_to_die;
 	(*data)->time_to_eat = args->time_to_eat;

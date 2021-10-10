@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 01:58:13 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/10 06:19:17 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/10 16:14:09 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,15 @@
 
 t_bool	is_satisfied(t_data *data)
 {
-	if (data->max_meals > 0)
+	if (data->max_meals > 0 && data->nb_meals == data->max_meals)
 	{
-		if (data->nb_meals == data->max_meals)
-		{
-			print_action(data, SATISFIED);
-			pthread_mutex_lock(&data->shared->stop_mutex);
-			data->shared->stop = true;
-			pthread_mutex_unlock(&data->shared->stop_mutex);
-		}
+		print_action(data, SATISFIED);
+		data->shared->nb_satisfied++;
+		if (data->shared->nb_satisfied == data->shared->nb_philo)
+			do_stop(data->shared);
+		return (true);
 	}
+	return (false);
 }
 
 void	*routine(void *ptr)
