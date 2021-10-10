@@ -85,7 +85,7 @@ void	threads_join(pthread_t *thread, int size)
 	index = 0;
 	while (index < size)
 	{
-		pthread_join(thread[index++], (void **)&data);
+		pthread_join(thread[index], (void **)&data);
 		free(data);
 		index++;
 	}
