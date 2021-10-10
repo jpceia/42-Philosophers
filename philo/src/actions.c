@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 06:08:21 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/10 06:21:08 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/10 16:37:46 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,23 @@ void	do_die(t_data *data)
 
 t_bool	try_eat(t_data *data)
 {
-	int		left_fork_index;
-	int		right_fork_index;
-	long	t;
+	t_shared	*shared;
+	int			left_fork_index;
+	int			right_fork_index;
+	long		t;
 
-	left_fork_index = data->position % data->shared->nb_philo;
-	right_fork_index = (data->position + 1) % data->shared->nb_philo;
+	shared = data->shared;
+	if (shared->nb_philo == 1)
+	{
+		t = get_chrono(shared->start_time);
+		usleep((data->last_meal + data->time_to_die - t) * 1000);
+		do_die(data);
+		return (false);
+	}
+	left_fork_index = data->position % shared->nb_philo;
+	right_fork_index = (data->position + 1) % shared->nb_philo;
 	pthread_mutex_lock(&data->shared->forks[left_fork_index]);
+	print_action(data, TAKE_FORK);
 	pthread_mutex_lock(&data->shared->forks[right_fork_index]);
 	t = get_chrono(data->shared->start_time);
 	if (data->shared->stop)
