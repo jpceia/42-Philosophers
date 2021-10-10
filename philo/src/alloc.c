@@ -21,7 +21,7 @@ t_shared	*shared_init(t_shared *shared, int nb_philo)
 	shared->nb_philo = nb_philo;
 	shared->start_time = get_chrono(0);
 	shared->stop = false;
-	if (!mutex_array_init(shared->forks, nb_philo))
+	if (!mutex_array_init(&shared->forks, nb_philo))
 		return (NULL);
 	if (pthread_mutex_init(&shared->print_mutex, NULL) < 0)
 	{
@@ -41,10 +41,7 @@ void	shared_clean(t_shared *shared)
 	pthread_mutex_destroy(&shared->print_mutex);
 	pthread_mutex_destroy(&shared->stop_mutex);
 	if (shared->forks)
-	{
 		mutex_array_destroy(shared->forks, shared->nb_philo);
-		free(shared->forks);
-	}
 }
 
 t_data	*data_init(t_data **data, t_shared *shared,
