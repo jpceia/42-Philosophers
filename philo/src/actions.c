@@ -20,7 +20,7 @@ void	do_stop(t_shared *shared)
 	pthread_mutex_unlock(&shared->stop_mutex);
 }
 
-void	do_dead(t_data *data)
+void	do_die(t_data *data)
 {
 	print_action(data, DEAD);
 	do_stop(data->shared);
@@ -41,7 +41,7 @@ t_bool	try_eat(t_data *data)
 		return (false);
 	if (t - data->last_meal > data->time_to_die)
 	{
-		do_dead(data);
+		do_die(data);
 		return (false);
 	}
 	print_action(data, EAT);

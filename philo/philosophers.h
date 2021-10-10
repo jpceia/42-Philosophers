@@ -71,7 +71,7 @@ void			print_action(t_data *data, t_state state);
  * Actions
  */
 void			do_stop(t_shared *shared);
-void			do_dead(t_data *data);
+void			do_die(t_data *data);
 t_bool			try_eat(t_data *data);
 void			do_think(t_data *data);
 void			do_sleep(t_data *data);
