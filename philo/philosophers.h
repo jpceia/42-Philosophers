@@ -18,9 +18,10 @@
 
 typedef enum e_state
 {
-	THINK = 0,
+	TAKE_FORK = 0,
 	EAT,
 	SLEEP,
+	THINK,
 	SATISFIED,
 	DEAD,
 }	t_state;
