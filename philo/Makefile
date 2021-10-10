@@ -6,11 +6,13 @@
 #    By: jceia <jceia@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/30 04:53:35 by jceia             #+#    #+#              #
-#    Updated: 2021/10/09 21:31:09 by jceia            ###   ########.fr        #
+#    Updated: 2021/10/10 07:00:55 by jceia            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= philo
+
+LIBFT_DIR	= ../libft
 
 INC_DIR		= .
 
@@ -23,10 +25,12 @@ OBJS		= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 CC			= gcc
 RM			= rm -f
 
-FLAG_WARN	= -Wall -Wextra
+FLAG_WARN	= -Wall -Wextra -Werror
+FLAG_LIBFT	= -L$(LIBFT_DIR) -lft
+FLAG_INC	= -I$(LIBFT_DIR) -I$(INC_DIR)
 
-CFLAGS		=  $(FLAG_WANR) -I$(INC_DIR) -pthread -g
-LDFLAGS		= -pthread -g
+CFLAGS		= $(FLAG_WANR) $(FLAG_INC) -pthread -g
+LDFLAGS		= $(FLAG_LIBFT) -pthread -g
 
 all:		$(NAME)
 
@@ -35,12 +39,15 @@ $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
 			$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME):	$(OBJS)
+			$(MAKE) -C $(LIBFT_DIR)
 			$(CC) $^ -o $@ $(LDFLAGS)
 
 clean:
+			$(MAKE) -C $(LIBFT_DIR) clean
 			$(RM) -r $(OBJ_DIR)
 
 fclean:		clean
+			$(MAKE) -C $(LIBFT_DIR) fclean
 			$(RM) $(NAME)
 
 re:			fclean all

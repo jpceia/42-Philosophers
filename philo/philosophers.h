@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 23:38:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/10 06:20:30 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/10 07:06:35 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,7 @@
 # define PHILOSOPHERS_H
 
 # include <pthread.h>
-
-typedef enum e_bool
-{
-	false = 0,
-	true
-}	t_bool;
+# include "libft.h"
 
 typedef enum e_state
 {

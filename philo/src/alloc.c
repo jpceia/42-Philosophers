@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 01:59:06 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/10 06:48:06 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/10 07:26:17 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <string.h>
 #include <stdio.h>
 #include "philosophers.h"
+#include "libft.h"
 
 t_shared	*shared_init(t_shared *shared, int nb_philo)
 {
@@ -79,9 +80,6 @@ pthread_t	*threads_init(pthread_t **thread,
 	{
 		data_init(&data, shared, args, index + 1);
 		pthread_create(*thread + index, NULL, routine, data);
-		pthread_mutex_lock(&shared->print_mutex);
-		printf("Created philo %d\n", index);
-		pthread_mutex_unlock(&shared->print_mutex);
 		index++;
 	}
 	return (*thread);
@@ -95,7 +93,7 @@ void	threads_join(pthread_t *thread, int size)
 	index = 0;
 	while (index < size)
 	{
-		pthread_join(thread[index++], (void *)data);
+		pthread_join(thread[index++], (void **)&data);
 		free(data);
 		index++;
 	}
