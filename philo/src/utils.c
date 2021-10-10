@@ -20,7 +20,7 @@ long	get_chrono(long start_time)
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000000 + tv.tv_usec / 1000 - start_time);
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000 - start_time);
 }
 
 t_args	*parse_args(t_args *args, int argc, char **argv)
