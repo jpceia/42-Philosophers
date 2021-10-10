@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 01:59:06 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/10 07:26:17 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/10 16:31:52 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,6 @@ t_shared	*shared_init(t_shared *shared, int nb_philo)
 	shared->stop = false;
 	if (!mutex_array_init(&shared->forks, nb_philo))
 		return (NULL);
-	if (pthread_mutex_init(&shared->print_mutex, NULL) < 0)
-	{
-		perror("Error initializing mutex");
-		return (NULL);
-	}
 	if (pthread_mutex_init(&shared->stop_mutex, NULL) < 0)
 	{
 		perror("Error initializing mutex");
@@ -39,7 +34,6 @@ t_shared	*shared_init(t_shared *shared, int nb_philo)
 
 void	shared_clean(t_shared *shared)
 {
-	pthread_mutex_destroy(&shared->print_mutex);
 	pthread_mutex_destroy(&shared->stop_mutex);
 	if (shared->forks)
 		mutex_array_destroy(shared->forks, shared->nb_philo);

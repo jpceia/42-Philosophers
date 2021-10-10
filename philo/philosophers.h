@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 23:38:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/10 13:35:54 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/10 16:32:10 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef enum e_state
 
 typedef struct s_shared
 {
-	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	stop_mutex;
 	pthread_mutex_t	*forks;
 	int				nb_philo;

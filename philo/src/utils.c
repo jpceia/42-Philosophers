@@ -46,23 +46,20 @@ void	print_action(t_data *data, t_state state)
 	char	*s;
 
 	t = get_chrono(data->shared->start_time);
-	if (state == EAT)
-		s = " is eating";
-	else if (state == THINK)
-		s = " is thinking";
+	if (state == TAKE_FORK)
+		s = "has taken a fork";
+	else if (state == EAT)
+		s = "is eating";
 	else if (state == SLEEP)
-		s = " is sleeping";
+		s = "is sleeping";
+	else if (state == THINK)
+		s = "is thinking";
 	else if (state == SATISFIED)
-		s = " is satisfied";
+		s = "is satisfied";
 	else if (state == DEAD)
-		s = " died";
+		s = "died";
 	else
-		return ;
-	pthread_mutex_lock(&data->shared->print_mutex);
-	ft_putnbr((int)t);
-	ft_putstr("ms philosoper ");
-	ft_putnbr(data->position);
-	ft_putstr(s);
-	ft_putchar('\n');
-	pthread_mutex_unlock(&data->shared->print_mutex);
+		s = "(unkown action)";
+	// pthread_mutex_lock(&data->shared->print_mutex);
+	// pthread_mutex_unlock(&data->shared->print_mutex);
 }
