@@ -31,7 +31,6 @@ typedef struct s_shared
 	pthread_mutex_t	stop_mutex;
 	pthread_mutex_t	*forks;
 	int				nb_philo;
-	int				nb_satisfied;
 	long			start_time;
 	t_bool			stop;
 }	t_shared;

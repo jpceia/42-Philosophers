@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 01:58:13 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/10 16:14:09 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/10 20:01:41 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@ t_bool	is_satisfied(t_data *data)
 	if (data->max_meals > 0 && data->nb_meals == data->max_meals)
 	{
 		print_action(data, SATISFIED);
-		data->shared->nb_satisfied++;
-		if (data->shared->nb_satisfied == data->shared->nb_philo)
-			do_stop(data->shared);
 		return (true);
 	}
 	return (false);

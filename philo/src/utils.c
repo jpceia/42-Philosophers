@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 20:25:20 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/10 16:40:45 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/10 20:02:03 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,6 @@ void	print_action(t_data *data, t_state state)
 	else
 		s = "(unkown action)";
 	ft_strlcat(msg, s, BUF_SIZE);
-	ft_strlcat(msg, " ", BUF_SIZE);
-	s = ft_itoa(data->shared->nb_satisfied);
-	ft_strlcat(msg, s, BUF_SIZE);
-	free(s);
 	ft_strlcat(msg, "\n", BUF_SIZE);
 	ft_putstr(msg);
 }
