@@ -33,6 +33,10 @@ void	do_eat(t_data *data)
 {
 	print_action(data, EAT);
 	usleep(data->time_to_eat * 1000);
+
+void	do_release_fork(t_data *data)
+{
+	print_action(data, RELEASE_FORK);
 }
 
 void	do_sleep(t_data *data)

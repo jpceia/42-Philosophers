@@ -32,6 +32,7 @@ int		clean_vars(t_vars *vars, char *err_msg, t_bool unlink);
 typedef enum e_state
 {
 	TAKE_FORK = 0,
+	RELEASE_FORK,
 	EAT,
 	SLEEP,
 	THINK,
@@ -70,7 +71,9 @@ t_bool	one_philo_die(t_data *data);
 
 void	do_die(t_data *data);
 void	do_think(t_data *data);
+void	do_take_fork(t_data *data);
 void	do_eat(t_data *data);
+void	do_release_fork(t_data *data);
 void	do_sleep(t_data *data);
 
 #endif
