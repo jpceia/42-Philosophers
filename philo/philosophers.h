@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 23:38:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/12 15:12:33 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/12 15:16:27 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@
 
 typedef enum e_state
 {
-	TAKE_FORK = 0,	// YELLOW
-	EAT,			// GREEN
-	SLEEP,			// BLUE
-	THINK,			// PINK
-	SATISFIED,		// WHITE
-	DEAD,			// RED
+	TAKE_FORK = 0,
+	RELEASE_FORK,
+	EAT,
+	SLEEP,
+	THINK,
+	SATISFIED,
+	DEAD,
 }	t_state;
 
 typedef struct s_shared

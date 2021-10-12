@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 20:25:20 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/10 20:02:03 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/12 15:16:10 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,25 @@ t_args	*parse_args(t_args *args, int argc, char **argv)
 	return (args);
 }
 
+char	*state_message(t_state state)
+{
+	if (state == TAKE_FORK)
+		return ("has taken a fork");
+	if (state == EAT)
+		return ("is eating");
+	if (state == RELEASE_FORK)
+		return ("has released a fork");
+	if (state == SLEEP)
+		return ("is sleeping");
+	if (state == THINK)
+		return ("is thinking");
+	if (state == SATISFIED)
+		return ("is satisfied");
+	if (state == DEAD)
+		return ("died");
+	return ("(unkown action)");
+}
+
 void	print_action(t_data *data, t_state state)
 {
 	long	t;
@@ -56,20 +75,7 @@ void	print_action(t_data *data, t_state state)
 	ft_strlcat(msg, s, BUF_SIZE);
 	free(s);
 	ft_strlcat(msg, "\t", BUF_SIZE);
-	if (state == TAKE_FORK)
-		s = "has taken a fork";
-	else if (state == EAT)
-		s = "is eating";
-	else if (state == SLEEP)
-		s = "is sleeping";
-	else if (state == THINK)
-		s = "is thinking";
-	else if (state == SATISFIED)
-		s = "is satisfied";
-	else if (state == DEAD)
-		s = "died";
-	else
-		s = "(unkown action)";
+	s = state_message(state);
 	ft_strlcat(msg, s, BUF_SIZE);
 	ft_strlcat(msg, "\n", BUF_SIZE);
 	ft_putstr(msg);
