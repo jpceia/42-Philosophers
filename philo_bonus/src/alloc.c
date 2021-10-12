@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:03:01 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/12 15:00:58 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/12 16:00:32 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,48 +15,65 @@
 #include <stdio.h>
 #include <fcntl.h>
 
-t_vars	*init_vars(t_vars *vars, int size)
+t_data	*data_setup(t_data *data)
 {
-	memset(vars, 0, sizeof(*vars));
 	sem_unlink(SEM_NAME_1);
-	vars->forks = sem_open(SEM_NAME_1, O_CREAT, 0644, size);
-	if (vars->forks == SEM_FAILED)
+	data->forks = sem_open(SEM_NAME_1, O_CREAT, 0644, data->nb_philo);
+	if (data->forks == SEM_FAILED)
 	{
-		clean_vars(vars, "sem_open(3) error", 1);
+		data_clean(data, "sem_open(3) error", 1);
 		return (NULL);
 	}
 	sem_unlink(SEM_NAME_2);
-	vars->stop = sem_open(SEM_NAME_2, O_CREAT, 0644, 1);
-	if (vars->stop == SEM_FAILED)
+	data->stop = sem_open(SEM_NAME_2, O_CREAT, 0644, 1);
+	if (data->stop == SEM_FAILED)
 	{
-		clean_vars(vars, "sem_open(3) error", 1);
+		data_clean(data, "sem_open(3) error", 1);
 		return (NULL);
 	}
-	vars->pid = malloc(size * sizeof(*vars->pid));
-	if (!vars->pid)
+	data->pid = malloc(data->nb_philo * sizeof(*data->pid));
+	if (!data->pid)
 	{
-		clean_vars(vars, "malloc(3) failed", 1);
+		data_clean(data, "malloc(3) failed", 1);
 		return (NULL);
 	}
-	return (vars);
+	return (data);
 }
 
-int	clean_vars(t_vars *vars, char *err_msg, t_bool unlink)
+t_data	*data_init(t_data *data, int argc, char **argv)
 {
-	if (vars->pid)
+	memset(data, 0, sizeof(*data));
+	if (argc != 5 && argc != 6)
 	{
-		free(vars->pid);
-		vars->pid = NULL;
+		ft_putstr_error("Incorrect number of arguments\n");
+		return (NULL);
 	}
-	if (vars->forks)
+	data->nb_philo = ft_atoi(argv[1]);
+	data->time_to_die = ft_atoi(argv[2]);
+	data->time_to_eat = ft_atoi(argv[3]);
+	data->time_to_sleep = ft_atoi(argv[4]);
+	data->start_time = get_chrono(0);
+	if (argc == 6)
+		data->max_meals = ft_atoi(argv[5]);
+	return (data_setup(data));
+}
+
+int	data_clean(t_data *data, char *err_msg, t_bool unlink)
+{
+	if (data->pid)
 	{
-		sem_close(vars->forks);
-		vars->forks = NULL;
+		free(data->pid);
+		data->pid = NULL;
 	}
-	if (vars->stop)
+	if (data->forks)
 	{
-		sem_close(vars->stop);
-		vars->stop = NULL;
+		sem_close(data->forks);
+		data->forks = NULL;
+	}
+	if (data->stop)
+	{
+		sem_close(data->stop);
+		data->stop = NULL;
 	}
 	if (unlink)
 		sem_unlink(SEM_NAME_1);

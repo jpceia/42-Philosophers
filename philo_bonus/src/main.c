@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 10:47:31 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/12 15:01:43 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/12 15:58:50 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 #include <stdio.h>
 #include <sys/wait.h>
 
-void	main_loop(t_vars *vars, t_data *data, int index)
+void	main_loop(t_data *data, int index)
 {
-	vars->pid[index] = fork();
-	if (vars->pid[index] < 0)
-		exit(clean_vars(vars, "fork(2) failed", 1));
-	if (vars->pid[index] == 0)
+	data->pid[index] = fork();
+	if (data->pid[index] < 0)
+		exit(data_clean(data, "fork(2) failed", 1));
+	if (data->pid[index] == 0)
 	{
 		data->position = index + 1;
 		routine(data);
-		exit(clean_vars(vars, NULL, 0));
+		exit(data_clean(data, NULL, 0));
 	}
 }
 
@@ -31,21 +31,16 @@ int	main(int argc, char *argv[])
 {
 	int		index;
 	t_data	data;
-	t_vars	vars;
 
-	if (!parse_data(&data, argc, argv))
+	if (!data_init(&data, argc, argv))
 		return (EXIT_FAILURE);
-	if (!init_vars(&vars, data.nb_philo))
-		return (EXIT_FAILURE);
-	data.forks = vars.forks;
-	data.stop = vars.stop; 
 	index = 0;
 	while (index < data.nb_philo)
-		main_loop(&vars, &data, index++);
+		main_loop(&data, index++);
 	index = 0;
 	while (index < data.nb_philo)
-		if (waitpid(vars.pid[index++], NULL, 0) < 0)
+		if (waitpid(data.pid[index++], NULL, 0) < 0)
 			perror("waitpid(2) failed");
-	clean_vars(&vars, NULL, 1);
+	data_clean(&data, NULL, 1);
 	return (EXIT_SUCCESS);
 }
