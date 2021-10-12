@@ -6,11 +6,10 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 20:25:20 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/12 14:09:52 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/12 14:25:49 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <sys/time.h>
 #include "philosophers.h"
 #include "libft.h"

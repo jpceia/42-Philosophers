@@ -6,45 +6,13 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 10:47:31 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/10 10:49:46 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/12 14:24:47 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <semaphore.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include "philosophers.h"
-
-/*
- * Allowed functions
- * processes
- *	  fork
- *	  kill
- *	  waitpid
- * semaphores
- *	  sem_open
- *	  sem_close
- *	  sem_post
- *	  sem_wait
- *	  sem_unlink
- */
-
-// kill main process when a child dies
-t_bool	is_satisfied(t_data *data)
-{
-	if (data->max_meals > 0)
-	{
-		if (data->nb_meals == data->max_meals)
-		{
-			print_action(data, SATISFIED);
-			do_stop(data);
-		}
-	}
-}
+#include <stdio.h>
+#include <sys/wait.h>
 
 void	main_loop(t_vars *vars, t_data *data, int index)
 {
@@ -59,7 +27,6 @@ void	main_loop(t_vars *vars, t_data *data, int index)
 	}
 }
 
-// https://stackoverflow.com/questions/32205396/share-posix-semaphore-among-multiple-processes
 int	main(int argc, char *argv[])
 {
 	int		index;

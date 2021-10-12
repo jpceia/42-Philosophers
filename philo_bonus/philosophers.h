@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 23:38:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/12 14:11:49 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/12 14:28:14 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <semaphore.h>
 # include "libft.h"
 
-# define SEM_NAME "/philo_sem"
+# define SEM_NAME "/forks_semaphore"
 
 # define BUF_SIZE 1024
 
@@ -31,9 +31,10 @@ int		clean_vars(t_vars *vars, char *err_msg, t_bool unlink);
 
 typedef enum e_state
 {
-	THINK = 0,
+	TAKE_FORK = 0,
 	EAT,
 	SLEEP,
+	THINK,
 	SATISFIED,
 	DEAD,
 }	t_state;
@@ -54,23 +55,23 @@ typedef struct s_data
 /*
  * Utils
  */
-t_data			*parse_data(t_data *data, int argc, char **argv);
-long			get_chrono(long start_time);
-void			print_action(t_data *data, t_state state);
+t_data	*parse_data(t_data *data, int argc, char **argv);
+long	get_chrono(long start_time);
+void	print_action(t_data *data, t_state state);
 
 /*
  * Actions
  */
-void			do_stop(void);
-void			do_dead(t_data *data);
-t_bool			try_eat(t_data *data, sem_t *semaphore);
-void			do_think(t_data *data);
-void			do_sleep(t_data *data);
 
-void			routine(t_data *data, sem_t *semaphore);
+void	routine(t_data *data, sem_t *semaphore);
+t_bool	try_eat(t_data *data, sem_t *semaphore);
+t_bool	check_if_dead(t_data *data);
+t_bool	is_satisfied(t_data *data);
+t_bool	one_philo_die(t_data *data);
 
-/*
- * Data Allocation
- */
+void	do_die(t_data *data);
+void	do_think(t_data *data);
+void	do_eat(t_data *data);
+void	do_sleep(t_data *data);
 
 #endif
