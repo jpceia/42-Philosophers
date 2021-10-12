@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 23:38:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/10 16:40:18 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/12 14:11:49 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,18 @@
 # include <semaphore.h>
 # include "libft.h"
 
-# define SEM_NAME "./philo_semaphore"
-# define SEM_PERMS (S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP)
+# define SEM_NAME "/philo_sem"
 
 # define BUF_SIZE 1024
+
+typedef	struct s_vars
+{
+	pid_t	*pid;
+	sem_t	*semaphore;
+}	t_vars;
+
+t_vars	*init_vars(t_vars *vars, int size);
+int		clean_vars(t_vars *vars, char *err_msg, t_bool unlink);
 
 typedef enum e_state
 {

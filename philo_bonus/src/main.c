@@ -46,16 +46,16 @@ t_bool	is_satisfied(t_data *data)
 	}
 }
 
-void	routine(t_data *data, sem_t *semaphore)
+void	main_loop(t_vars *vars, t_data *data, int index)
 {
-	while (1)
+	vars->pid[index] = fork();
+	if (vars->pid[index] < 0)
+		exit(clean_vars(vars, "fork(2) failed", 1));
+	if (vars->pid[index] == 0)
 	{
-		if (!try_eat(data, semaphore))
-			break ;
-		if (is_satisfied(data))
-			break ;
-		do_sleep(data);
-		do_think(data);
+		data->position = index + 1;
+		routine(data, vars->semaphore);
+		exit(clean_vars(vars, NULL, 0));
 	}
 }
 
@@ -63,37 +63,20 @@ void	routine(t_data *data, sem_t *semaphore)
 int	main(int argc, char *argv[])
 {
 	int		index;
-	pid_t	*pid;
 	t_data	data;
-	sem_t	*semaphore;
+	t_vars	vars;
 
-	parse_data(&data, argc, argv);
-	// sem_init(&semaphore, 1, data.nb_philo / 2);
-	semaphore = sem_open(SEM_NAME, O_CREAT, SEM_PERMS, data.nb_philo);
-	pid = malloc(data.nb_philo * sizeof(*pid));
+	if (!parse_data(&data, argc, argv))
+		return (EXIT_FAILURE);
+	if (!init_vars(&vars, data.nb_philo))
+		return (EXIT_FAILURE);
 	index = 0;
 	while (index < data.nb_philo)
-	{
-		pid[index] = fork();
-		if (pid[index] == -1)
-		{
-			perror("Error with creating process");
-			return (EXIT_FAILURE);
-		}
-		if (pid[index] == 0)
-		{
-			data.position = index;
-			routine(&data, semaphore);
-			return (EXIT_SUCCESS);
-		}
-		index++;
-	}
+		main_loop(&vars, &data, index++);
 	index = 0;
 	while (index < data.nb_philo)
-	{
-		waitpid(pid[index], NULL, 0);
-		index++;
-	}
-	sem_close(semaphore);
+		if (waitpid(vars.pid[index++], NULL, 0) < 0)
+			perror("waitpid(2) failed");
+	clean_vars(&vars, NULL, 1);
 	return (EXIT_SUCCESS);
 }
