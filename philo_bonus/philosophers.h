@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 23:38:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/12 14:28:14 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/12 14:32:27 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 # define BUF_SIZE 1024
 
-typedef	struct s_vars
+typedef struct s_vars
 {
 	pid_t	*pid;
 	sem_t	*semaphore;
@@ -62,7 +62,6 @@ void	print_action(t_data *data, t_state state);
 /*
  * Actions
  */
-
 void	routine(t_data *data, sem_t *semaphore);
 t_bool	try_eat(t_data *data, sem_t *semaphore);
 t_bool	check_if_dead(t_data *data);

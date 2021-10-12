@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:53:03 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/12 14:03:13 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/12 14:31:11 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	routine(t_data *data, sem_t *semaphore)
 			break ;
 		do_sleep(data);
 		if (check_if_dead(data))
-			break;
+			break ;
 		do_think(data);
 	}
 }
@@ -34,24 +34,25 @@ t_bool	try_eat(t_data *data, sem_t *semaphore)
 	sem_wait(semaphore);
 	if (check_if_dead(data))
 		return (false);
-    print_action(data, TAKE_FORK);
-    sem_wait(semaphore);
+	print_action(data, TAKE_FORK);
+	sem_wait(semaphore);
 	if (check_if_dead(data))
 		return (false);
-    do_eat(data);
+	do_eat(data);
 	data->last_meal = get_chrono(data->start_time);
 	data->nb_meals++;
 	sem_post(semaphore);
-    sem_post(semaphore);
+	sem_post(semaphore);
 	return (true);
 }
 
 t_bool	one_philo_die(t_data *data)
 {
 	long	t;
-	
-	t = get_chrono(data->start_time);
-	usleep((data->last_meal + data->time_to_die - t) * 1000);
+
+	t = data->last_meal + data->time_to_die - get_chrono(data->start_time);
+	if (t > 0)
+		usleep(t * 1000);
 	do_die(data);
 	return (false);
 }
