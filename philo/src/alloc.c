@@ -42,8 +42,10 @@ void	shared_clean(t_shared *shared)
 t_data	*data_init(t_data **data, t_shared *shared,
 		const t_args *args, int position)
 {
+	int	pos[2];
+
 	*data = malloc(sizeof(t_data));
-	if (!data)
+	if (!*data)
 	{
 		shared_clean(shared);
 		exit(EXIT_FAILURE);
@@ -55,6 +57,9 @@ t_data	*data_init(t_data **data, t_shared *shared,
 	(*data)->time_to_die = args->time_to_die;
 	(*data)->time_to_eat = args->time_to_eat;
 	(*data)->time_to_sleep = args->time_to_sleep;
+	forks_indexes(pos, position, shared->nb_philo);
+	(*data)->left_fork = shared->forks + pos[0];
+	(*data)->right_fork = shared->forks + pos[1];
 	return (*data);
 }
 

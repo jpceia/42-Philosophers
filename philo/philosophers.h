@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 23:38:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/12 16:45:16 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/12 17:11:40 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,26 +40,27 @@ typedef struct s_shared
 
 typedef struct s_args
 {
-	int		nb_philo;
-	int		position;
-	int		time_to_die;
-	int		time_to_eat;
-	int		time_to_sleep;
-	int		max_meals;
+	int				nb_philo;
+	int				position;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				max_meals;
 }	t_args;
 
 typedef struct s_data
 {
-	t_shared	*shared;
+	t_shared		*shared;
 
-	int			position;
-	int			time_to_die;
-	int			time_to_sleep;
-	int			time_to_eat;
-	int			nb_meals;
-	int			max_meals;
-
-	long		last_meal;
+	int				position;
+	int				time_to_die;
+	int				time_to_sleep;
+	int				time_to_eat;
+	int				nb_meals;
+	int				max_meals;
+	long			last_meal;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
 }	t_data;
 
 /*
@@ -92,7 +93,7 @@ void			do_sleep(t_data *data);
  * Forks
  */
 void			forks_indexes(int index[2], int pos, int size);
-void			forks_release(int index[2], pthread_mutex_t *forks);
+void			forks_release(t_data *data);
 
 /*
  * Data Allocation

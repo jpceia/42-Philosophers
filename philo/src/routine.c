@@ -84,10 +84,10 @@ t_bool	try_eat(t_data *data)
 		return (false);
 	if (check_if_dead(data))
 	{
-		forks_release(index, shared->forks);
+		forks_release(data);
 		return (false);
 	}
 	do_eat(data);
-	forks_release(index, shared->forks);
+	forks_release(data);
 	return (true);
 }
