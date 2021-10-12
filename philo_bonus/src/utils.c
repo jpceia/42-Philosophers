@@ -41,27 +41,41 @@ t_data	*parse_data(t_data *data, int argc, char **argv)
 	return (data);
 }
 
+char	*state_message(t_state state)
+{
+	if (state == TAKE_FORK)
+		return ("has taken a fork");
+	if (state == EAT)
+		return ("is eating");
+	if (state == SLEEP)
+		return ("is sleeping");
+	if (state == THINK)
+		return ("is thinking");
+	if (state == SATISFIED)
+		return ("is satisfied");
+	if (state == DEAD)
+		return ("died");
+	return ("(unkown action)");
+}
+
 void	print_action(t_data *data, t_state state)
 {
 	long	t;
 	char	*s;
+	char	msg[BUF_SIZE];
 
 	t = get_chrono(data->start_time);
-	if (state == EAT)
-		s = " is eating";
-	else if (state == THINK)
-		s = " is thinking";
-	else if (state == SLEEP)
-		s = " is sleeping";
-	else if (state == SATISFIED)
-		s = " is satisfied";
-	else if (state == DEAD)
-		s = " died";
-	else
-		return ;
-	ft_putnbr((int)t);
-	ft_putstr("ms philosoper ");
-	ft_putnbr(data->position);
-	ft_putstr(s);
-	ft_putchar('\n');
+	msg[0] = '\0';
+	s = ft_itoa((int)t);
+	ft_strlcat(msg, s, BUF_SIZE);
+	free(s);
+	ft_strlcat(msg, "\tphilosopher ", BUF_SIZE);
+	s = ft_itoa(data->position);
+	ft_strlcat(msg, s, BUF_SIZE);
+	free(s);
+	ft_strlcat(msg, "\t", BUF_SIZE);
+	s = state_message(state);
+	ft_strlcat(msg, s, BUF_SIZE);
+	ft_strlcat(msg, "\n", BUF_SIZE);
+	ft_putstr(msg);
 }
