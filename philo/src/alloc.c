@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 01:59:06 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/10 16:31:52 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/12 15:11:05 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,19 +75,4 @@ pthread_t	*threads_init(pthread_t **thread,
 		index++;
 	}
 	return (*thread);
-}
-
-void	threads_join(pthread_t *thread, int size)
-{
-	t_data	*data;
-	int		index;
-
-	index = 0;
-	while (index < size)
-	{
-		pthread_join(thread[index], (void **)&data);
-		free(data);
-		index++;
-	}
-	free(thread);
 }

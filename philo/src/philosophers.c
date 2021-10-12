@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 01:58:13 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/10 20:01:41 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/12 15:10:26 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,5 @@ void	*routine(void *ptr)
 			break ;
 		do_think(data);
 	}
-	return ((void *)data);
+	free(data);
 }

@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 18:20:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/10 06:07:04 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/12 15:10:03 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,10 @@ int	main(int argc, char *argv[])
 		perror("Error initializing threads");
 		do_stop(&shared);
 	}
-	threads_join(thread, args.nb_philo);
+	index = 0;
+	while (index < args.nb_philo)
+		pthread_join(thread[index++], NULL);
+	free(thread);
 	shared_clean(&shared);
 	return (EXIT_SUCCESS);
 }

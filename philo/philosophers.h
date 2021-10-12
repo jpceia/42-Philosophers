@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 23:38:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/10 16:32:10 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/12 15:12:33 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,16 @@
 # include <pthread.h>
 # include "libft.h"
 
+# define BUF_SIZE	1024
+
 typedef enum e_state
 {
-	TAKE_FORK = 0,
-	EAT,
-	SLEEP,
-	THINK,
-	SATISFIED,
-	DEAD,
+	TAKE_FORK = 0,	// YELLOW
+	EAT,			// GREEN
+	SLEEP,			// BLUE
+	THINK,			// PINK
+	SATISFIED,		// WHITE
+	DEAD,			// RED
 }	t_state;
 
 typedef struct s_shared
@@ -80,7 +82,6 @@ void			*routine(void *ptr);
 /*
  * Data Allocation
  */
-
 pthread_mutex_t	*mutex_array_init(pthread_mutex_t **arr, int size);
 void			mutex_array_destroy(pthread_mutex_t *arr, int size);
 
@@ -92,7 +93,5 @@ t_data			*data_init(t_data **data, t_shared *shared,
 
 pthread_t		*threads_init(pthread_t **threads,
 					t_shared *shared, t_args *args);
-
-void			threads_join(pthread_t *threads, int size);
 
 #endif
