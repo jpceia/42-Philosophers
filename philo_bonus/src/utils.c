@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 20:25:20 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/12 14:25:49 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/12 15:36:48 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,21 +62,14 @@ char	*state_message(t_state state)
 void	print_action(t_data *data, t_state state)
 {
 	long	t;
-	char	*s;
-	char	msg[BUF_SIZE];
 
 	t = get_chrono(data->start_time);
-	msg[0] = '\0';
-	s = ft_itoa((int)t);
-	ft_strlcat(msg, s, BUF_SIZE);
-	free(s);
-	ft_strlcat(msg, "\tphilosopher ", BUF_SIZE);
-	s = ft_itoa(data->position);
-	ft_strlcat(msg, s, BUF_SIZE);
-	free(s);
-	ft_strlcat(msg, "\t", BUF_SIZE);
-	s = state_message(state);
-	ft_strlcat(msg, s, BUF_SIZE);
-	ft_strlcat(msg, "\n", BUF_SIZE);
-	ft_putstr(msg);
+	sem_wait(data->stop);
+	ft_putnbr((int)t);
+	ft_putstr("\tphilosopher ");
+	ft_putnbr(data->position);
+	ft_putchar('\t');
+	ft_putendl(state_message(state));
+	if (state != DEAD)
+		sem_post(data->stop);
 }

@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 06:08:21 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/12 14:25:14 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/12 15:46:28 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ void	do_take_fork(t_data *data)
 void	do_eat(t_data *data)
 {
 	print_action(data, EAT);
+	data->last_meal = get_chrono(0) - data->start_time;
 	usleep(data->time_to_eat * 1000);
+	data->nb_meals++;
+}
 
 void	do_release_fork(t_data *data)
 {

@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 23:38:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/12 14:32:27 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/12 14:58:50 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,16 @@
 # include <semaphore.h>
 # include "libft.h"
 
-# define SEM_NAME "/forks_semaphore"
+# define SEM_NAME_1 "/sem1"
+# define SEM_NAME_2 "/sem2"
 
 # define BUF_SIZE 1024
 
 typedef struct s_vars
 {
 	pid_t	*pid;
-	sem_t	*semaphore;
+	sem_t	*forks;
+	sem_t	*stop;
 }	t_vars;
 
 t_vars	*init_vars(t_vars *vars, int size);
@@ -51,6 +53,8 @@ typedef struct s_data
 	int		nb_meals;
 	long	last_meal;
 	long	start_time;
+	sem_t	*forks;
+	sem_t	*stop;
 }	t_data;
 
 /*
@@ -63,8 +67,8 @@ void	print_action(t_data *data, t_state state);
 /*
  * Actions
  */
-void	routine(t_data *data, sem_t *semaphore);
-t_bool	try_eat(t_data *data, sem_t *semaphore);
+void	routine(t_data *data);
+t_bool	try_eat(t_data *data);
 t_bool	check_if_dead(t_data *data);
 t_bool	is_satisfied(t_data *data);
 t_bool	one_philo_die(t_data *data);

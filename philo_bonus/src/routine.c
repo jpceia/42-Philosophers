@@ -6,19 +6,23 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:53:03 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/12 14:31:11 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/12 15:48:01 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	routine(t_data *data, sem_t *semaphore)
+void	routine(t_data *data)
 {
 	while (1)
 	{
-		if (!try_eat(data, semaphore))
+		if (!try_eat(data))
+			break ;
+		if (check_if_dead(data))
 			break ;
 		if (is_satisfied(data))
+			break ;
+		if (check_if_dead(data))
 			break ;
 		do_sleep(data);
 		if (check_if_dead(data))
@@ -27,22 +31,21 @@ void	routine(t_data *data, sem_t *semaphore)
 	}
 }
 
-t_bool	try_eat(t_data *data, sem_t *semaphore)
+t_bool	try_eat(t_data *data)
 {
 	if (data->nb_philo == 1)
 		return (one_philo_die(data));
-	sem_wait(semaphore);
+	sem_wait(data->forks);
 	if (check_if_dead(data))
 		return (false);
 	print_action(data, TAKE_FORK);
-	sem_wait(semaphore);
+	sem_wait(data->forks);
 	if (check_if_dead(data))
 		return (false);
 	do_eat(data);
-	data->last_meal = get_chrono(data->start_time);
-	data->nb_meals++;
-	sem_post(semaphore);
-	sem_post(semaphore);
+	sem_post(data->forks);
+	print_action(data, RELEASE_FORK);
+	sem_post(data->forks);
 	return (true);
 }
 
