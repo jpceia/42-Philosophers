@@ -38,7 +38,7 @@ typedef struct s_data
 	int		time_to_eat;
 	int		time_to_sleep;
 	int		max_meals;
-	int		nb_means;
+	int		nb_meals;
 	long	last_meal;
 	long	start_time;
 }	t_data;
