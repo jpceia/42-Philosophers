@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 23:38:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/12 15:16:27 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/12 16:45:16 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,29 @@ long			get_chrono(long start_time);
 void			print_action(t_data *data, t_state state);
 
 /*
+ * Routine
+ */
+void			*routine(void *ptr);
+t_bool			try_eat(t_data *data);
+t_bool			check_if_dead(t_data *data);
+t_bool			is_satisfied(t_data *data);
+t_bool			one_philo_die(t_data *data);
+
+/*
  * Actions
  */
-void			do_stop(t_shared *shared);
 void			do_die(t_data *data);
-t_bool			try_eat(t_data *data);
 void			do_think(t_data *data);
+void			do_take_fork(t_data *data);
+void			do_eat(t_data *data);
+void			do_release_fork(t_data *data);
 void			do_sleep(t_data *data);
 
-void			*routine(void *ptr);
+/*
+ * Forks
+ */
+void			forks_indexes(int index[2], int pos, int size);
+void			forks_release(int index[2], pthread_mutex_t *forks);
 
 /*
  * Data Allocation

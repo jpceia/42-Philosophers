@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 18:20:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/12 15:10:03 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/12 16:37:42 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,27 +32,6 @@
  * 		is in milliseconds and is the time the philosopher will spend
  * 		sleeping.
  */
-
-/*
- * Allowed functions
- * memset
- * printf
- * malloc
- * free
- * write
- * usleep
- * gettimeofday
- * pthreat:
- * 		pthread_create
- * 		pthread_detach
- * 		pthread_join
- * mutex
- * 		pthread_mutex_init
- * 		pthread_mutex_destroy
- * 		pthread_mutex_lock
- * 		pthread_mutex_unlock
- */
-
 int	main(int argc, char *argv[])
 {
 	int			index;
@@ -70,7 +49,8 @@ int	main(int argc, char *argv[])
 	if (threads_init(&thread, &shared, &args) < 0)
 	{
 		perror("Error initializing threads");
-		do_stop(&shared);
+		shared_clean(&shared);
+		exit (EXIT_FAILURE);
 	}
 	index = 0;
 	while (index < args.nb_philo)

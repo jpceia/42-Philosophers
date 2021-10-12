@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 06:08:21 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/10 16:37:46 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/12 16:37:41 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,41 +26,12 @@ void	do_die(t_data *data)
 	do_stop(data->shared);
 }
 
-t_bool	try_eat(t_data *data)
+void	do_eat(t_data *data)
 {
-	t_shared	*shared;
-	int			left_fork_index;
-	int			right_fork_index;
-	long		t;
-
-	shared = data->shared;
-	if (shared->nb_philo == 1)
-	{
-		t = get_chrono(shared->start_time);
-		usleep((data->last_meal + data->time_to_die - t) * 1000);
-		do_die(data);
-		return (false);
-	}
-	left_fork_index = data->position % shared->nb_philo;
-	right_fork_index = (data->position + 1) % shared->nb_philo;
-	pthread_mutex_lock(&data->shared->forks[left_fork_index]);
-	print_action(data, TAKE_FORK);
-	pthread_mutex_lock(&data->shared->forks[right_fork_index]);
-	t = get_chrono(data->shared->start_time);
-	if (data->shared->stop)
-		return (false);
-	if (t - data->last_meal > data->time_to_die)
-	{
-		do_die(data);
-		return (false);
-	}
 	print_action(data, EAT);
-	usleep(data->time_to_sleep * 1000);
+	usleep(data->time_to_eat * 1000);
 	data->last_meal = get_chrono(data->shared->start_time);
 	data->nb_meals++;
-	pthread_mutex_unlock(&data->shared->forks[right_fork_index]);
-	pthread_mutex_unlock(&data->shared->forks[left_fork_index]);
-	return (true);
 }
 
 void	do_think(t_data *data)
