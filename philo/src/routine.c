@@ -69,17 +69,15 @@ t_bool	check_if_dead(t_data *data)
 t_bool	try_eat(t_data *data)
 {
 	t_shared	*shared;
-	int			index[2];
 
 	shared = data->shared;
 	if (shared->nb_philo == 1)
 		return (one_philo_die(data));
-	forks_indexes(index, data->position, shared->nb_philo);
-	pthread_mutex_lock(&shared->forks[index[0]]);
+	pthread_mutex_lock(data->left_fork);
 	if (check_if_dead(data))
 		return (false);
 	print_action(data, TAKE_FORK);
-	pthread_mutex_lock(&shared->forks[index[1]]);
+	pthread_mutex_lock(data->right_fork);
 	if (shared->stop)
 		return (false);
 	if (check_if_dead(data))
