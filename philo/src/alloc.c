@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 01:59:06 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/12 21:14:38 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/13 07:48:16 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_data	*data_init(t_data **data, t_shared *shared,
 	if (!*data)
 	{
 		shared_clean(shared);
+		perror(MALLOC_ERR);
 		exit(EXIT_FAILURE);
 	}
 	memset(*data, 0, sizeof(**data));
@@ -79,7 +80,11 @@ pthread_t	*threads_init(pthread_t **thread,
 	while (index < args->nb_philo)
 	{
 		data_init(&data, shared, args, index + 1);
-		pthread_create(*thread + index, NULL, routine, data);
+		if (pthread_create(*thread + index, NULL, routine, data) != 0)
+		{
+			perror(THREAD_CREATE_ERR);
+			return (NULL);
+		}
 		index++;
 	}
 	return (*thread);
