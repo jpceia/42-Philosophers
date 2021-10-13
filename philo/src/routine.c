@@ -73,11 +73,20 @@ t_bool	try_eat(t_data *data)
 	shared = data->shared;
 	if (shared->nb_philo == 1)
 		return (one_philo_die(data));
-	pthread_mutex_lock(data->left_fork);
+	if (pthread_mutex_lock(data->left_fork) != 0)
+	{
+		perror(MUTEX_LOCK_ERR);
+		return (false);
+	}
 	if (check_if_dead(data))
 		return (false);
 	print_action(data, TAKE_FORK);
 	pthread_mutex_lock(data->right_fork);
+	if (pthread_mutex_lock(data->right_fork) != 0)
+	{
+		perror(MUTEX_LOCK_ERR);
+		return (false);
+	}
 	if (shared->stop)
 		return (false);
 	if (check_if_dead(data))

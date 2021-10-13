@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 18:20:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/12 16:37:42 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/12 21:15:50 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <pthread.h>
-#include <string.h>
 
 #include "philosophers.h"
+#include "libft.h"
 
 /*
  * number_of_philosophers:
@@ -42,19 +42,20 @@ int	main(int argc, char *argv[])
 	parse_args(&args, argc, argv);
 	if (shared_init(&shared, args.nb_philo) < 0)
 	{
-		perror("Error initializing variable");
+		ft_putstr_error("Error initializing variable\n");
 		shared_clean(&shared);
 		return (EXIT_FAILURE);
 	}
 	if (threads_init(&thread, &shared, &args) < 0)
 	{
-		perror("Error initializing threads");
+		ft_putstr_error("Error initializing threads\n");
 		shared_clean(&shared);
-		exit (EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	}
 	index = 0;
 	while (index < args.nb_philo)
-		pthread_join(thread[index++], NULL);
+		if (pthread_join(thread[index++], NULL))
+			perror(THREAD_JOIN_ERR);
 	free(thread);
 	shared_clean(&shared);
 	return (EXIT_SUCCESS);

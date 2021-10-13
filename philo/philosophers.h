@@ -18,6 +18,14 @@
 
 # define BUF_SIZE	1024
 
+# define MALLOC_ERR			"malloc(3) error"
+# define MUTEX_INIT_ERR		"pthread_mutex_init(3) error"
+# define MUTEX_DESTROY_ERR	"pthread_mutex_destroy(3) error"
+# define MUTEX_LOCK_ERR		"pthread_mutex_lock(3) error"
+# define MUTEX_UNLOCK_ERR	"pthread_mutex_unlock(3) error"
+# define THREAD_CREATE_ERR	"pthread_create(3) error"
+# define THREAD_JOIN_ERR	"pthread_join(3) error"
+
 typedef enum e_state
 {
 	TAKE_FORK = 0,

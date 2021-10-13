@@ -6,11 +6,10 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 20:25:20 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/12 15:16:10 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/12 20:31:20 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <sys/time.h>
 #include "philosophers.h"
 #include "libft.h"
@@ -27,7 +26,7 @@ t_args	*parse_args(t_args *args, int argc, char **argv)
 {
 	if (argc != 5 && argc != 6)
 	{
-		printf("Incorrect number of arguments\n");
+		ft_putstr_error("Incorrect number of arguments\n");
 		return (NULL);
 	}
 	args->nb_philo = ft_atoi(argv[1]);

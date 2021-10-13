@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 01:59:06 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/12 15:11:05 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/12 21:14:38 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_shared	*shared_init(t_shared *shared, int nb_philo)
 		return (NULL);
 	if (pthread_mutex_init(&shared->stop_mutex, NULL) < 0)
 	{
-		perror("Error initializing mutex");
+		perror(MUTEX_INIT_ERR);
 		return (NULL);
 	}
 	return (shared);
@@ -71,7 +71,10 @@ pthread_t	*threads_init(pthread_t **thread,
 
 	*thread = malloc(sizeof(**thread) * args->nb_philo);
 	if (!*thread)
+	{
+		perror(MALLOC_ERR);
 		return (NULL);
+	}
 	index = 0;
 	while (index < args->nb_philo)
 	{

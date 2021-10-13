@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 19:26:55 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/10 14:12:03 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/12 21:17:49 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ pthread_mutex_t	*mutex_array_init(pthread_mutex_t **arr, int size)
 	*arr = (pthread_mutex_t *)malloc(size * sizeof(**arr));
 	if (!*arr)
 	{
-		perror("Error allocating memory");
+		perror(MALLOC_ERR);
 		return (NULL);
 	}
 	index = 0;
@@ -30,7 +30,7 @@ pthread_mutex_t	*mutex_array_init(pthread_mutex_t **arr, int size)
 	{
 		if (pthread_mutex_init(&(*arr)[index], NULL) < 0)
 		{
-			perror("Error creating mutex");
+			perror(MUTEX_INIT_ERR);
 			mutex_array_destroy(*arr, index);
 			return (NULL);
 		}
@@ -45,6 +45,7 @@ void	mutex_array_destroy(pthread_mutex_t *arr, int size)
 
 	index = 0;
 	while (index < size)
-		pthread_mutex_destroy(&arr[index++]);
+		if (pthread_mutex_destroy(&arr[index++]) != 0)
+			perror(MUTEX_DESTROY_ERR);
 	free(arr);
 }
