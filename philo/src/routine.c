@@ -82,7 +82,6 @@ t_bool	try_eat(t_data *data)
 	if (check_if_dead(data))
 		return (false);
 	print_action(data, TAKE_FORK);
-	pthread_mutex_lock(data->right_fork);
 	if (pthread_mutex_lock(data->right_fork) != 0)
 	{
 		perror(MUTEX_LOCK_ERR);
