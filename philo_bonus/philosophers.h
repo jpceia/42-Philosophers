@@ -41,7 +41,7 @@ int		data_clean(t_data *data, char *err_msg, t_bool unlink);
 typedef enum e_state
 {
 	TAKE_FORK = 0,
-	RELEASE_FORK,
+	RELEASE_FORKS,
 	EAT,
 	SLEEP,
 	THINK,
@@ -68,7 +68,7 @@ void	do_die(t_data *data);
 void	do_think(t_data *data);
 void	do_take_fork(t_data *data);
 void	do_eat(t_data *data);
-void	do_release_fork(t_data *data);
+void	do_release_forks(t_data *data);
 void	do_sleep(t_data *data);
 
 #endif

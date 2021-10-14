@@ -82,22 +82,25 @@ t_bool	try_eat(t_data *data)
 		perror(MUTEX_LOCK_ERR);
 		return (false);
 	}
-	if (check_if_dead(data))
+	if (shared->stop || check_if_dead(data))
+	{
+		pthread_mutex_unlock(data->left_fork);
 		return (false);
+	}
 	print_action(data, TAKE_FORK);
 	if (pthread_mutex_lock(data->right_fork) != 0)
 	{
 		perror(MUTEX_LOCK_ERR);
 		return (false);
 	}
-	if (shared->stop)
-		return (false);
-	if (check_if_dead(data))
+	if (shared->stop || check_if_dead(data))
 	{
-		forks_release(data);
+		do_release_forks(data);
 		return (false);
 	}
 	if (do_eat(data) < 0)
 		return (false);
-	return (forks_release(data));
+	if (do_release_forks(data) < 0)
+		return (false);
+	return (true);
 }

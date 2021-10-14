@@ -29,7 +29,7 @@
 typedef enum e_state
 {
 	TAKE_FORK = 0,
-	RELEASE_FORK,
+	RELEASE_FORKS,
 	EAT,
 	SLEEP,
 	THINK,
@@ -94,14 +94,13 @@ int				do_die(t_data *data);
 int				do_think(t_data *data);
 int				do_take_fork(t_data *data);
 int				do_eat(t_data *data);
-int				do_release_fork(t_data *data);
+int				do_release_forks(t_data *data);
 int				do_sleep(t_data *data);
 
 /*
  * Forks
  */
 void			forks_indexes(int index[2], int pos, int size);
-t_bool			forks_release(t_data *data);
 
 /*
  * Data Allocation

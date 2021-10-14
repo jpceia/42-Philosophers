@@ -37,9 +37,9 @@ void	do_eat(t_data *data)
 	data->nb_meals++;
 }
 
-void	do_release_fork(t_data *data)
+void	do_release_forks(t_data *data)
 {
-	print_action(data, RELEASE_FORK);
+	print_action(data, RELEASE_FORKS);
 }
 
 void	do_sleep(t_data *data)

@@ -44,7 +44,7 @@ t_bool	try_eat(t_data *data)
 		return (false);
 	do_eat(data);
 	sem_post(data->forks);
-	print_action(data, RELEASE_FORK);
+	print_action(data, RELEASE_FORKS);
 	sem_post(data->forks);
 	return (true);
 }

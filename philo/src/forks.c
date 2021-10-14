@@ -27,18 +27,18 @@ void	forks_indexes(int index[2], int pos, int size)
 	}
 }
 
-t_bool	forks_release(t_data *data)
+int	do_release_forks(t_data *data)
 {
-	print_action(data, RELEASE_FORK);
+	print_action(data, RELEASE_FORKS);
 	if (pthread_mutex_unlock(data->left_fork) != 0)
 	{
 		perror(MUTEX_UNLOCK_ERR);
-		return (false);
+		return (EXIT_FAILURE);
 	}
 	if (pthread_mutex_unlock(data->right_fork) != 0)
 	{
 		perror(MUTEX_UNLOCK_ERR);
-		return (false);
+		return (EXIT_FAILURE);
 	}
-	return (true);
+	return (EXIT_SUCCESS);
 }

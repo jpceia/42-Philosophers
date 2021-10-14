@@ -45,8 +45,8 @@ char	*state_message(t_state state)
 		return ("has taken a fork");
 	if (state == EAT)
 		return ("is eating");
-	if (state == RELEASE_FORK)
-		return ("has released a fork");
+	if (state == RELEASE_FORKS)
+		return ("has released his forks");
 	if (state == SLEEP)
 		return ("is sleeping");
 	if (state == THINK)
