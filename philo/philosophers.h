@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 23:38:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/12 17:11:40 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/13 07:48:39 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,18 +90,18 @@ t_bool			one_philo_die(t_data *data);
 /*
  * Actions
  */
-void			do_die(t_data *data);
-void			do_think(t_data *data);
-void			do_take_fork(t_data *data);
-void			do_eat(t_data *data);
-void			do_release_fork(t_data *data);
-void			do_sleep(t_data *data);
+int				do_die(t_data *data);
+int				do_think(t_data *data);
+int				do_take_fork(t_data *data);
+int				do_eat(t_data *data);
+int				do_release_fork(t_data *data);
+int				do_sleep(t_data *data);
 
 /*
  * Forks
  */
 void			forks_indexes(int index[2], int pos, int size);
-void			forks_release(t_data *data);
+t_bool			forks_release(t_data *data);
 
 /*
  * Data Allocation

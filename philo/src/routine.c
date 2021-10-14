@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 15:08:05 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/12 16:44:37 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/14 15:20:47 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@ void	*routine(void *ptr)
 			break ;
 		if (is_satisfied(data))
 			break ;
-		do_sleep(data);
+		if (do_sleep(data) < 0)
+			break ;
 		if (data->shared->stop)
 			break ;
-		do_think(data);
+		if (do_think(data) < 0)
+			break;
 	}
 	free(data);
 	return (NULL);
@@ -95,7 +97,7 @@ t_bool	try_eat(t_data *data)
 		forks_release(data);
 		return (false);
 	}
-	do_eat(data);
-	forks_release(data);
-	return (true);
+	if (do_eat(data) < 0)
+		return (false);
+	return (forks_release(data));
 }
