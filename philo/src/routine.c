@@ -32,6 +32,7 @@ void	*routine(void *ptr)
 		do_think(data);
 	}
 	free(data);
+	return (NULL);
 }
 
 t_bool	is_satisfied(t_data *data)
