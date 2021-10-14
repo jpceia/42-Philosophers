@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "philosophers.h"
+#include <stdio.h>
 
 void	*routine(void *ptr)
 {
