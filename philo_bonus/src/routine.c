@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:53:03 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/12 15:48:01 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/17 17:41:28 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void	routine(t_data *data)
 			break ;
 		if (is_satisfied(data))
 			break ;
-		if (check_if_dead(data))
-			break ;
 		do_sleep(data);
 		if (check_if_dead(data))
 			break ;
@@ -35,17 +33,17 @@ t_bool	try_eat(t_data *data)
 {
 	if (data->nb_philo == 1)
 		return (one_philo_die(data));
-	sem_wait(data->forks);
+	sem_wait(data->waiter->sem);
+	sem_wait(data->forks->sem);
 	if (check_if_dead(data))
 		return (false);
 	print_action(data, TAKE_FORK);
-	sem_wait(data->forks);
+	sem_wait(data->forks->sem);
+	sem_post(data->waiter->sem);
 	if (check_if_dead(data))
 		return (false);
 	do_eat(data);
-	sem_post(data->forks);
-	print_action(data, RELEASE_FORKS);
-	sem_post(data->forks);
+	do_release_forks(data);
 	return (true);
 }
 

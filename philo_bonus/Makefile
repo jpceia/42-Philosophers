@@ -6,7 +6,7 @@
 #    By: jceia <jceia@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/30 04:53:35 by jceia             #+#    #+#              #
-#    Updated: 2021/10/10 07:38:36 by jceia            ###   ########.fr        #
+#    Updated: 2021/10/12 12:43:26 by jceia            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,11 +36,11 @@ all:		$(NAME)
 
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
 			@mkdir -p $(dir $@)
-			$(CC) $(CFLAGS) -c $< -o $@
+			$(CC) -c $< -o $@ $(CFLAGS) 
 
 $(NAME):	$(OBJS)
 			$(MAKE) -C $(LIBFT_DIR)
-			$(CC) $^ -o $@ $(LDFLAGS)
+			$(CC)   $^ -o $@ $(LDFLAGS)
 
 clean:
 			$(MAKE) -C $(LIBFT_DIR) clean

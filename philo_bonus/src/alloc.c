@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:03:01 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/12 16:00:32 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/12 17:38:34 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,18 @@
 
 t_data	*data_setup(t_data *data)
 {
-	sem_unlink(SEM_NAME_1);
-	data->forks = sem_open(SEM_NAME_1, O_CREAT, 0644, data->nb_philo);
-	if (data->forks == SEM_FAILED)
+	data->forks = semaphore_create("/forks", data->nb_philo);
+	data->stop = semaphore_create("/stop", 1);
+	data->waiter = semaphore_create("/waiter", 1);
+	if (!data->forks || !data->stop || !data->waiter)
 	{
-		data_clean(data, "sem_open(3) error", 1);
-		return (NULL);
-	}
-	sem_unlink(SEM_NAME_2);
-	data->stop = sem_open(SEM_NAME_2, O_CREAT, 0644, 1);
-	if (data->stop == SEM_FAILED)
-	{
-		data_clean(data, "sem_open(3) error", 1);
+		data_clean(data, "", 1);
 		return (NULL);
 	}
 	data->pid = malloc(data->nb_philo * sizeof(*data->pid));
 	if (!data->pid)
 	{
-		data_clean(data, "malloc(3) failed", 1);
+		data_clean(data, MALLOC_ERR, 1);
 		return (NULL);
 	}
 	return (data);
@@ -65,20 +59,9 @@ int	data_clean(t_data *data, char *err_msg, t_bool unlink)
 		free(data->pid);
 		data->pid = NULL;
 	}
-	if (data->forks)
-	{
-		sem_close(data->forks);
-		data->forks = NULL;
-	}
-	if (data->stop)
-	{
-		sem_close(data->stop);
-		data->stop = NULL;
-	}
-	if (unlink)
-		sem_unlink(SEM_NAME_1);
-	if (unlink)
-		sem_unlink(SEM_NAME_2);
+	semaphore_close(&data->forks, unlink);
+	semaphore_close(&data->stop, unlink);
+	semaphore_close(&data->waiter, unlink);
 	if (err_msg)
 	{
 		perror(err_msg);
