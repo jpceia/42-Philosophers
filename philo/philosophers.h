@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 23:38:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/17 17:42:19 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/17 19:02:25 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,10 @@ void			print_action(t_data *data, t_state state);
  * Routine
  */
 void			*routine(void *ptr);
-t_bool			try_eat(t_data *data);
+int				try_eat(t_data *data);
 t_bool			check_if_dead(t_data *data);
 t_bool			is_satisfied(t_data *data);
-t_bool			one_philo_die(t_data *data);
+void			one_philo_die(t_data *data);
 
 /*
  * Actions
