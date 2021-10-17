@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 23:38:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/17 19:02:25 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/17 19:06:08 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void			one_philo_die(t_data *data);
 int				do_die(t_data *data);
 int				do_think(t_data *data);
 int				do_eat(t_data *data);
+int				do_take_forks(t_data *data);
 int				do_release_forks(t_data *data);
 int				do_sleep(t_data *data);
 

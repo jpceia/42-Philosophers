@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 15:08:05 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/17 19:03:39 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/17 19:05:12 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,27 +79,8 @@ int	try_eat(t_data *data)
 		one_philo_die(data);
 		return (-1);
 	}
-	if (pthread_mutex_lock(data->fork1) != 0)
-	{
-		perror(MUTEX_LOCK_ERR);
+	if (do_take_forks(data) < 0)
 		return (-1);
-	}
-	if (shared->stop || check_if_dead(data))
-	{
-		pthread_mutex_unlock(data->fork1);
-		return (-1);
-	}
-	print_action(data, TAKE_FORK);
-	if (pthread_mutex_lock(data->fork2) != 0)
-	{
-		perror(MUTEX_LOCK_ERR);
-		return (-1);
-	}
-	if (shared->stop || check_if_dead(data))
-	{
-		do_release_forks(data);
-		return (-1);
-	}
 	if (do_eat(data) < 0)
 		return (-1);
 	if (do_release_forks(data) < 0)
