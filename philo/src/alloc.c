@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 01:59:06 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/13 07:48:16 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/17 16:13:54 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	shared_clean(t_shared *shared)
 t_data	*data_init(t_data **data, t_shared *shared,
 		const t_args *args, int position)
 {
-	int	pos[2];
+	int	idx[2];
 
 	*data = malloc(sizeof(t_data));
 	if (!*data)
@@ -58,9 +58,9 @@ t_data	*data_init(t_data **data, t_shared *shared,
 	(*data)->time_to_die = args->time_to_die;
 	(*data)->time_to_eat = args->time_to_eat;
 	(*data)->time_to_sleep = args->time_to_sleep;
-	forks_indexes(pos, position, shared->nb_philo);
-	(*data)->left_fork = shared->forks + pos[0];
-	(*data)->right_fork = shared->forks + pos[1];
+	forks_indexes(idx, position, shared->nb_philo);
+	(*data)->fork1 = shared->forks + idx[0];
+	(*data)->fork2 = shared->forks + idx[1];
 	return (*data);
 }
 

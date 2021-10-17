@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 23:38:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/13 07:48:39 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/17 17:42:19 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ typedef struct s_data
 	int				nb_meals;
 	int				max_meals;
 	long			last_meal;
-	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	*fork1;
+	pthread_mutex_t	*fork2;
 }	t_data;
 
 /*
@@ -92,7 +92,6 @@ t_bool			one_philo_die(t_data *data);
  */
 int				do_die(t_data *data);
 int				do_think(t_data *data);
-int				do_take_fork(t_data *data);
 int				do_eat(t_data *data);
 int				do_release_forks(t_data *data);
 int				do_sleep(t_data *data);
