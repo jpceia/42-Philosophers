@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 15:08:05 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/17 19:05:12 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/17 19:12:15 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,12 @@ void	*routine(void *ptr)
 
 t_bool	is_satisfied(t_data *data)
 {
+	long	t;
+
 	if (data->max_meals > 0 && data->nb_meals == data->max_meals)
 	{
-		print_action(data, SATISFIED);
+		t = get_chrono(0) - data->shared->start_time;
+		print_action(t, data->position, SATISFIED);
 		return (true);
 	}
 	return (false);

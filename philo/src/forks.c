@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 16:42:28 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/17 19:05:43 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/17 19:10:12 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ void	forks_indexes(int index[2], int pos, int size)
 
 int	do_release_forks(t_data *data)
 {
-	print_action(data, RELEASE_FORKS);
+	long	t;
+
+	t = get_chrono(0) - data->shared->start_time;
+	print_action(t, data->position, RELEASE_FORKS);
 	if (pthread_mutex_unlock(data->fork1) != 0)
 	{
 		perror(MUTEX_UNLOCK_ERR);
@@ -45,6 +48,8 @@ int	do_release_forks(t_data *data)
 
 int	do_take_forks(t_data *data)
 {
+	long	t;
+
 	if (pthread_mutex_lock(data->fork1) != 0)
 	{
 		perror(MUTEX_LOCK_ERR);
@@ -55,7 +60,8 @@ int	do_take_forks(t_data *data)
 		pthread_mutex_unlock(data->fork1);
 		return (-1);
 	}
-	print_action(data, TAKE_FORK);
+	t = get_chrono(0) - data->shared->start_time;
+	print_action(t, data->position, TAKE_FORK);
 	if (pthread_mutex_lock(data->fork2) != 0)
 	{
 		perror(MUTEX_LOCK_ERR);
