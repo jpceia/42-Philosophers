@@ -62,7 +62,7 @@ typedef struct s_args
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int				time_to_think;
+	float			time_to_think;
 	int				meals_must_eat;
 	float			time_to_check;
 }	t_args;
@@ -75,7 +75,7 @@ typedef struct s_data
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int				time_to_think;
+	float			time_to_think;
 	int				nb_meals;
 	int				meals_must_eat;
 	long			last_meal;

@@ -39,7 +39,7 @@ int	main(int argc, char *argv[])
 	pthread_t	*thread;
 
 	parse_args(&args, argc, argv);
-	args.time_to_think = 5;
+	args.time_to_think = 0.1;
 	args.time_to_check = 0.1;
 	if (shared_init(&shared, args.nb_philo) < 0)
 	{
