@@ -62,8 +62,9 @@ typedef struct s_data
 
 	int				position;
 	int				time_to_die;
-	int				time_to_sleep;
 	int				time_to_eat;
+	int				time_to_sleep;
+	int				time_to_think;
 	int				nb_meals;
 	int				max_meals;
 	long			last_meal;

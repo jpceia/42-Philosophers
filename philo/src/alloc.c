@@ -58,6 +58,7 @@ t_data	*data_init(t_data **data, t_shared *shared,
 	(*data)->time_to_die = args->time_to_die;
 	(*data)->time_to_eat = args->time_to_eat;
 	(*data)->time_to_sleep = args->time_to_sleep;
+	(*data)->time_to_think = args->time_to_think;
 	forks_indexes(idx, position, shared->nb_philo);
 	(*data)->fork1 = shared->forks + idx[0];
 	(*data)->fork2 = shared->forks + idx[1];

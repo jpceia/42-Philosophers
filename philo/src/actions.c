@@ -54,6 +54,7 @@ int	do_think(t_data *data)
 
 	t = get_chrono(0) - data->shared->start_time;
 	print_action(t, data->position, THINK);
+	usleep(1000 * data->time_to_think);
 	return (0);
 }
 
