@@ -67,11 +67,11 @@ void	print_action(long t, int position, t_state state)
 	s = ft_itoa((int)t);
 	ft_strlcat(msg, s, BUF_SIZE);
 	free(s);
-	ft_strlcat(msg, "\tphilosopher ", BUF_SIZE);
+	ft_strlcat(msg, "\t", BUF_SIZE);
 	s = ft_itoa(position);
 	ft_strlcat(msg, s, BUF_SIZE);
 	free(s);
-	ft_strlcat(msg, "\t", BUF_SIZE);
+	ft_strlcat(msg, " ", BUF_SIZE);
 	s = state_message(state);
 	ft_strlcat(msg, s, BUF_SIZE);
 	ft_strlcat(msg, "\n", BUF_SIZE);
