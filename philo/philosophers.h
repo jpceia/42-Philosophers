@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 23:38:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/17 19:07:52 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/19 15:29:52 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define MUTEX_LOCK_ERR		"pthread_mutex_lock(3) error"
 # define MUTEX_UNLOCK_ERR	"pthread_mutex_unlock(3) error"
 # define THREAD_CREATE_ERR	"pthread_create(3) error"
+# define THREAD_DETACH_ERR	"pthread_detach(3) error"
 # define THREAD_JOIN_ERR	"pthread_join(3) error"
 
 typedef enum e_state
@@ -39,11 +40,19 @@ typedef enum e_state
 
 typedef struct s_shared
 {
+	pthread_mutex_t	last_meal_mutex;
+	long			*last_meal;
+
+	pthread_mutex_t	satisfied_mutex;
+	int				nb_satisfied;
+
 	pthread_mutex_t	stop_mutex;
+	t_bool			stop;
+
 	pthread_mutex_t	*forks;
+
 	int				nb_philo;
 	long			start_time;
-	t_bool			stop;
 }	t_shared;
 
 typedef struct s_args
@@ -53,7 +62,9 @@ typedef struct s_args
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int				max_meals;
+	int				time_to_think;
+	int				meals_must_eat;
+	float			time_to_check;
 }	t_args;
 
 typedef struct s_data
@@ -66,7 +77,7 @@ typedef struct s_data
 	int				time_to_sleep;
 	int				time_to_think;
 	int				nb_meals;
-	int				max_meals;
+	int				meals_must_eat;
 	long			last_meal;
 	pthread_mutex_t	*fork1;
 	pthread_mutex_t	*fork2;
@@ -103,7 +114,7 @@ int				do_sleep(t_data *data);
 void			forks_indexes(int index[2], int pos, int size);
 
 /*
- * Data Allocation
+ * Data Allocation & clear
  */
 pthread_mutex_t	*mutex_array_init(pthread_mutex_t **arr, int size);
 void			mutex_array_destroy(pthread_mutex_t *arr, int size);

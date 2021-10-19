@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 20:25:20 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/17 19:11:13 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/19 00:00:46 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ t_args	*parse_args(t_args *args, int argc, char **argv)
 	args->time_to_die = ft_atoi(argv[2]);
 	args->time_to_eat = ft_atoi(argv[3]);
 	args->time_to_sleep = ft_atoi(argv[4]);
-	args->max_meals = 0;
+	args->meals_must_eat = 0;
 	if (argc == 6)
-		args->max_meals = ft_atoi(argv[5]);
+		args->meals_must_eat = ft_atoi(argv[5]);
 	return (args);
 }
 
