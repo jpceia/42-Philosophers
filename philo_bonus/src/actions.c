@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 06:08:21 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/17 17:41:28 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/19 16:27:47 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	do_eat(t_data *data)
 void	do_release_forks(t_data *data)
 {
 	sem_post(data->forks->sem);
-	print_action(data, RELEASE_FORK);
+	print_action(data, RELEASE_FORKS);
 	sem_post(data->forks->sem);
 }
 
