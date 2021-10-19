@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 15:08:05 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/17 19:12:15 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/19 15:31:43 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,30 +24,15 @@ void	*routine(void *ptr)
 			break ;
 		if (data->shared->stop)
 			break ;
-		if (is_satisfied(data))
-			break ;
 		if (do_sleep(data) < 0)
 			break ;
 		if (data->shared->stop)
 			break ;
 		if (do_think(data) < 0)
-			break;
+			break ;
 	}
 	free(data);
 	return (NULL);
-}
-
-t_bool	is_satisfied(t_data *data)
-{
-	long	t;
-
-	if (data->max_meals > 0 && data->nb_meals == data->max_meals)
-	{
-		t = get_chrono(0) - data->shared->start_time;
-		print_action(t, data->position, SATISFIED);
-		return (true);
-	}
-	return (false);
 }
 
 void	one_philo_die(t_data *data)

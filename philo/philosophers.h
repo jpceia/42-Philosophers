@@ -84,7 +84,6 @@ void			print_action(long t, int position, t_state state);
 void			*routine(void *ptr);
 int				try_eat(t_data *data);
 t_bool			check_if_dead(t_data *data);
-t_bool			is_satisfied(t_data *data);
 void			one_philo_die(t_data *data);
 
 /*
