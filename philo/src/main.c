@@ -40,7 +40,7 @@ int	main(int argc, char *argv[])
 
 	parse_args(&args, argc, argv);
 	args.time_to_think = 0.1;
-	args.time_to_check = 0.1;
+	args.time_to_check = 5;
 	if (shared_init(&shared, args.nb_philo) < 0)
 	{
 		ft_putstr_error("Error initializing variable\n");
