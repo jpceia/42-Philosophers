@@ -114,7 +114,13 @@ void			shared_clean(t_shared *shared);
 t_data			*data_init(t_data **data, t_shared *shared,
 					const t_args *args, int position);
 
+/*
+ * Threads
+ */
+
 pthread_t		*threads_init(pthread_t **threads,
 					t_shared *shared, t_args *args);
+
+void			threads_join(pthread_t *thread, int size);
 
 #endif

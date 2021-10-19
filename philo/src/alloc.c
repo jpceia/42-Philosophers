@@ -63,29 +63,3 @@ t_data	*data_init(t_data **data, t_shared *shared,
 	(*data)->fork2 = shared->forks + idx[1];
 	return (*data);
 }
-
-pthread_t	*threads_init(pthread_t **thread,
-		t_shared *shared, t_args *args)
-{
-	t_data	*data;
-	int		index;
-
-	*thread = malloc(sizeof(**thread) * args->nb_philo);
-	if (!*thread)
-	{
-		perror(MALLOC_ERR);
-		return (NULL);
-	}
-	index = 0;
-	while (index < args->nb_philo)
-	{
-		data_init(&data, shared, args, index + 1);
-		if (pthread_create(*thread + index, NULL, routine, data) != 0)
-		{
-			perror(THREAD_CREATE_ERR);
-			return (NULL);
-		}
-		index++;
-	}
-	return (*thread);
-}
