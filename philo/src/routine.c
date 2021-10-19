@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 15:08:05 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/19 15:31:43 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/19 16:03:09 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,31 @@ int	try_eat(t_data *data)
 	if (do_release_forks(data) < 0)
 		return (-1);
 	return (0);
+}
+
+t_bool	check_philosophers_dead(t_shared *shared, t_args *args)
+{
+	int		index;
+	long	t;
+
+	index = 0;
+	while (index < args->nb_philo)
+	{
+		t = get_chrono(0) - shared->start_time;
+		if (shared->last_meal[index] + args->time_to_die < t)
+		{
+			t = shared->last_meal[index] + args->time_to_die;
+			pthread_mutex_lock(&shared->stop_mutex);
+			if (!shared->stop)
+			{
+				shared->stop = true;
+				print_action(t, index + 1, DEAD);
+			}
+			pthread_mutex_unlock(&shared->stop_mutex);
+			return (true);
+		}
+		index++;
+	}
+	usleep((int)(1000 * args->time_to_check));
+	return (false);
 }

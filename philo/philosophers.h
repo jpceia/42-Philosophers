@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 23:38:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/19 15:29:52 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/19 16:07:37 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void			*routine(void *ptr);
 int				try_eat(t_data *data);
 t_bool			check_if_dead(t_data *data);
 void			one_philo_die(t_data *data);
+t_bool			check_philosophers_dead(t_shared *shared, t_args *args);
 
 /*
  * Actions
