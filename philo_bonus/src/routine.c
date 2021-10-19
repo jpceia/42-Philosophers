@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:53:03 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/17 17:41:28 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/19 17:04:53 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_bool	try_eat(t_data *data)
 		return (false);
 	print_action(data, TAKE_FORK);
 	sem_wait(data->forks->sem);
+	print_action(data, TAKE_FORK);
 	sem_post(data->waiter->sem);
 	if (check_if_dead(data))
 		return (false);

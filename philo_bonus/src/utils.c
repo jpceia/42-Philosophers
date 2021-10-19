@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 20:25:20 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/12 17:41:13 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/19 16:58:40 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ void	print_action(t_data *data, t_state state)
 	t = get_chrono(data->start_time);
 	sem_wait(data->stop->sem);
 	ft_putnbr((int)t);
-	ft_putstr("\tphilosopher ");
+	ft_putstr("\t");
 	ft_putnbr(data->position);
-	ft_putchar('\t');
+	ft_putchar(' ');
 	ft_putendl(state_message(state));
 	if (state != DEAD)
 		sem_post(data->stop->sem);
