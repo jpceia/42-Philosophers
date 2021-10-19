@@ -14,33 +14,27 @@
 #include <unistd.h>
 #include <stdio.h>
 
-int	do_stop(t_shared *shared)
-{
-	if (pthread_mutex_lock(&shared->stop_mutex) != 0)
-	{
-		perror(MUTEX_LOCK_ERR);
-		return (EXIT_FAILURE);
-	}
-	shared->stop = true;
-	if (pthread_mutex_unlock(&shared->stop_mutex) != 0)
-	{
-		perror(MUTEX_LOCK_ERR);
-		return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
-}
-
 int	do_die(t_data *data)
 {
 	long	t;
 
 	t = get_chrono(0) - data->shared->start_time;
+	if (data->shared->stop)
+		return (0);
+	pthread_mutex_lock(&data->shared->stop_mutex);
+	data->shared->stop = true;
 	print_action(t, data->position, DEAD);
-	return (do_stop(data->shared));
+	pthread_mutex_unlock(&data->shared->stop_mutex);
+	return (0);
 }
 
 int	do_eat(t_data *data)
 {
+	if (data->shared->stop)
+	{
+		do_release_forks(data);
+		return (-1);
+	}
 	data->last_meal = get_chrono(0) - data->shared->start_time;
 	print_action(data->last_meal, data->position, EAT);
 	usleep(data->time_to_eat * 1000);
