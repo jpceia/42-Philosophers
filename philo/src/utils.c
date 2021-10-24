@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 20:25:20 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/24 12:37:17 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/24 12:52:09 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ char	*state_message(t_state state)
 	return ("(unkown action)");
 }
 
-void	print_action(long t, int position, t_state state)
+void	print_action(int position, t_state state)
 {
 	char	*s;
 	char	msg[BUF_SIZE];
 
 	msg[0] = '\0';
-	s = ft_itoa((int)t);
+	s = ft_itoa((int)timestamp());
 	ft_strlcat(msg, s, BUF_SIZE);
 	free(s);
 	ft_strlcat(msg, "\t", BUF_SIZE);

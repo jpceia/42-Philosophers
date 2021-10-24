@@ -16,14 +16,11 @@
 
 int	do_die(t_data *data)
 {
-	long	t;
-
-	t = timestamp();
 	if (data->shared->stop)
 		return (0);
 	pthread_mutex_lock(&data->shared->stop_mutex);
 	data->shared->stop = true;
-	print_action(t, data->position, DEAD);
+	print_action(data->position, DEAD);
 	pthread_mutex_unlock(&data->shared->stop_mutex);
 	return (0);
 }
@@ -39,7 +36,7 @@ int	do_eat(t_data *data)
 	pthread_mutex_lock(&data->shared->last_meal_mutex);
 	data->shared->last_meal[data->position - 1] = data->last_meal;
 	pthread_mutex_unlock(&data->shared->last_meal_mutex);
-	print_action(data->last_meal, data->position, EAT);
+	print_action(data->position, EAT);
 	usleep(data->time_to_eat * 1000);
 	data->nb_meals++;
 	if (data->meals_must_eat > 0 && data->nb_meals == data->meals_must_eat)
@@ -59,20 +56,14 @@ int	do_eat(t_data *data)
 
 int	do_think(t_data *data)
 {
-	long	t;
-
-	t = timestamp();
-	print_action(t, data->position, THINK);
+	print_action(data->position, THINK);
 	usleep((int)(1000 * data->time_to_think));
 	return (0);
 }
 
 int	do_sleep(t_data *data)
 {
-	long	t;
-
-	t = timestamp();
-	print_action(t, data->position, SLEEP);
+	print_action(data->position, SLEEP);
 	usleep(data->time_to_sleep * 1000);
 	return (0);
 }

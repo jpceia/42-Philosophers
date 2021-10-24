@@ -79,20 +79,17 @@ int	try_eat(t_data *data)
 t_bool	check_philosophers_dead(t_shared *shared, t_args *args)
 {
 	int		index;
-	long	t;
 
 	index = 0;
 	while (index < args->nb_philo)
 	{
-		t = timestamp();
-		if (shared->last_meal[index] + args->time_to_die < t)
+		if (shared->last_meal[index] + args->time_to_die < timestamp())
 		{
-			t = shared->last_meal[index] + args->time_to_die;
 			pthread_mutex_lock(&shared->stop_mutex);
 			if (!shared->stop)
 			{
 				shared->stop = true;
-				print_action(t, index + 1, DEAD);
+				print_action(index + 1, DEAD);
 			}
 			pthread_mutex_unlock(&shared->stop_mutex);
 			return (true);

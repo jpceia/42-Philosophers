@@ -88,7 +88,7 @@ typedef struct s_data
  */
 t_args			*parse_args(t_args *args, int argc, char **argv);
 long			timestamp(void);
-void			print_action(long t, int position, t_state state);
+void			print_action(int position, t_state state);
 
 /*
  * Routine
