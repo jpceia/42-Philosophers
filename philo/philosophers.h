@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 23:38:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/19 16:07:37 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/24 13:43:03 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct s_data
  */
 t_args			*parse_args(t_args *args, int argc, char **argv);
 long			timestamp(void);
+void			chrono(float t);
 void			print_action(int position, t_state state);
 
 /*

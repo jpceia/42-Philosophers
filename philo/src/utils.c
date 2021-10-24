@@ -28,6 +28,11 @@ long	timestamp(void)
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000 - start_time);
 }
 
+void	chrono(float t)
+{
+	usleep((int)(t * 1000));
+}
+
 t_args	*parse_args(t_args *args, int argc, char **argv)
 {
 	if (argc != 5 && argc != 6)

@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 15:08:05 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/19 16:03:09 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/24 13:38:33 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	one_philo_die(t_data *data)
 	long	t;
 
 	t = timestamp();
-	usleep((data->last_meal + data->time_to_die - t) * 1000);
+	chrono(data->last_meal + data->time_to_die - t);
 	do_die(data);
 }
 
@@ -96,6 +96,6 @@ t_bool	check_philosophers_dead(t_shared *shared, t_args *args)
 		}
 		index++;
 	}
-	usleep((int)(1000 * args->time_to_check));
+	chrono(args->time_to_check);
 	return (false);
 }
