@@ -6,24 +6,13 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 06:08:21 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/24 13:43:51 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/24 13:53:29 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 #include <unistd.h>
 #include <stdio.h>
-
-int	do_die(t_data *data)
-{
-	if (data->shared->stop)
-		return (0);
-	pthread_mutex_lock(&data->shared->stop_mutex);
-	data->shared->stop = true;
-	print_action(data->position, DEAD);
-	pthread_mutex_unlock(&data->shared->stop_mutex);
-	return (0);
-}
 
 int	do_eat(t_data *data)
 {

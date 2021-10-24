@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 16:42:28 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/24 13:27:36 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/24 13:53:49 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	do_release_forks(t_data *data)
 int	do_take_forks(t_data *data)
 {
 	pthread_mutex_lock(data->fork1);
-	if (data->shared->stop || check_if_dead(data))
+	if (data->shared->stop)
 	{
 		pthread_mutex_unlock(data->fork1);
 		return (-1);
@@ -45,7 +45,7 @@ int	do_take_forks(t_data *data)
 	print_action(data->position, TAKE_FORK);
 	pthread_mutex_lock(data->fork2);
 	print_action(data->position, TAKE_FORK);
-	if (data->shared->stop || check_if_dead(data))
+	if (data->shared->stop)
 	{
 		do_release_forks(data);
 		return (-1);

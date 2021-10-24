@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 15:08:05 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/24 13:38:33 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/24 13:53:23 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,38 +35,13 @@ void	*routine(void *ptr)
 	return (NULL);
 }
 
-void	one_philo_die(t_data *data)
-{
-	long	t;
-
-	t = timestamp();
-	chrono(data->last_meal + data->time_to_die - t);
-	do_die(data);
-}
-
-t_bool	check_if_dead(t_data *data)
-{
-	long	t;
-
-	t = timestamp();
-	if (t - data->last_meal > data->time_to_die)
-	{
-		do_die(data);
-		return (true);
-	}
-	return (false);
-}
-
 int	try_eat(t_data *data)
 {
 	t_shared	*shared;
 
 	shared = data->shared;
 	if (shared->nb_philo == 1)
-	{
-		one_philo_die(data);
 		return (-1);
-	}
 	if (do_take_forks(data) < 0)
 		return (-1);
 	if (do_eat(data) < 0)
