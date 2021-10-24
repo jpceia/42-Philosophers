@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 20:25:20 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/19 00:00:46 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/24 12:37:17 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,17 @@
 #include "philosophers.h"
 #include "libft.h"
 
-long	get_chrono(long start_time)
+long	timestamp(void)
 {
+	static long		start_time = 0;
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
+	if (start_time == 0)
+	{
+		start_time = (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+		return (0);
+	}
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000 - start_time);
 }
 

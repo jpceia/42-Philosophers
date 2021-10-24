@@ -87,7 +87,7 @@ typedef struct s_data
  * Utils
  */
 t_args			*parse_args(t_args *args, int argc, char **argv);
-long			get_chrono(long start_time);
+long			timestamp(void);
 void			print_action(long t, int position, t_state state);
 
 /*

@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 01:59:06 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/19 15:56:44 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/24 12:33:00 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ t_shared	*shared_init(t_shared *shared, int nb_philo)
 {
 	memset(shared, 0, sizeof(*shared));
 	shared->nb_philo = nb_philo;
-	shared->start_time = get_chrono(0);
 	shared->stop = false;
 	shared->last_meal = ft_calloc(nb_philo, sizeof(*shared->last_meal));
 	if (!shared->last_meal)

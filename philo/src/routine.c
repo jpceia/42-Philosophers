@@ -39,7 +39,7 @@ void	one_philo_die(t_data *data)
 {
 	long	t;
 
-	t = get_chrono(data->shared->start_time);
+	t = timestamp();
 	usleep((data->last_meal + data->time_to_die - t) * 1000);
 	do_die(data);
 }
@@ -48,7 +48,7 @@ t_bool	check_if_dead(t_data *data)
 {
 	long	t;
 
-	t = get_chrono(data->shared->start_time);
+	t = timestamp();
 	if (t - data->last_meal > data->time_to_die)
 	{
 		do_die(data);
@@ -84,7 +84,7 @@ t_bool	check_philosophers_dead(t_shared *shared, t_args *args)
 	index = 0;
 	while (index < args->nb_philo)
 	{
-		t = get_chrono(0) - shared->start_time;
+		t = timestamp();
 		if (shared->last_meal[index] + args->time_to_die < t)
 		{
 			t = shared->last_meal[index] + args->time_to_die;
