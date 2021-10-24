@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 18:20:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/19 16:07:53 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/24 15:07:49 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	main(int argc, char *argv[])
 
 	parse_args(&args, argc, argv);
 	args.time_to_think = 0.1;
-	args.time_to_check = 5;
+	args.time_to_check = 0.1;
 	if (shared_init(&shared, args.nb_philo) < 0)
 	{
 		ft_putstr_error("Error initializing variable\n");
