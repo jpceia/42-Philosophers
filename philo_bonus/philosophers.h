@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 23:38:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/28 16:57:41 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/28 17:02:13 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ t_data		*data_init(t_data *data, int argc, char **argv);
 int			data_clean(t_data *data, char *err_msg, t_bool unlink);
 t_semaphore	*semaphore_create(char *name, int value);
 void		semaphore_close(t_semaphore **p, t_bool unlink);
+void		semaphore_post(t_semaphore *p);
+void		semaphore_wait(t_semaphore *p);
 
 typedef enum e_state
 {
