@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:03:01 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/12 17:38:34 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/28 18:22:16 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 t_data	*data_setup(t_data *data)
 {
 	data->forks = semaphore_create("/forks", data->nb_philo);
-	data->stop = semaphore_create("/stop", 1);
+	data->print = semaphore_create("/print", 1);
 	data->waiter = semaphore_create("/waiter", 1);
-	if (!data->forks || !data->stop || !data->waiter)
+	if (!data->forks || !data->print || !data->waiter)
 	{
 		data_clean(data, "", 1);
 		return (NULL);
@@ -60,7 +60,7 @@ int	data_clean(t_data *data, char *err_msg, t_bool unlink)
 		data->pid = NULL;
 	}
 	semaphore_close(&data->forks, unlink);
-	semaphore_close(&data->stop, unlink);
+	semaphore_close(&data->print, unlink);
 	semaphore_close(&data->waiter, unlink);
 	if (err_msg)
 	{

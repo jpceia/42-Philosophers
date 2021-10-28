@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 06:08:21 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/19 17:03:54 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/28 18:18:07 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	do_eat(t_data *data)
 
 void	do_release_forks(t_data *data)
 {
-	sem_post(data->forks->sem);
-	sem_post(data->forks->sem);
+	semaphore_post(data->forks);
+	semaphore_post(data->forks);
 }
 
 void	do_sleep(t_data *data)

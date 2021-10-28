@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:53:03 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/19 17:04:53 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/28 18:18:08 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ t_bool	try_eat(t_data *data)
 {
 	if (data->nb_philo == 1)
 		return (one_philo_die(data));
-	sem_wait(data->waiter->sem);
-	sem_wait(data->forks->sem);
+	semaphore_wait(data->waiter);
+	semaphore_wait(data->forks);
 	if (check_if_dead(data))
 		return (false);
 	print_action(data, TAKE_FORK);
-	sem_wait(data->forks->sem);
+	semaphore_wait(data->forks);
 	print_action(data, TAKE_FORK);
-	sem_post(data->waiter->sem);
+	semaphore_post(data->waiter);
 	if (check_if_dead(data))
 		return (false);
 	do_eat(data);
