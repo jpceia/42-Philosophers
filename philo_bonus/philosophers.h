@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 23:38:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/19 16:57:56 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/28 16:57:41 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_data
 	long		start_time;
 	pid_t		*pid;
 	t_semaphore	*forks;
-	t_semaphore	*stop;
+	t_semaphore	*print;
 	t_semaphore	*waiter;
 }	t_data;
 
