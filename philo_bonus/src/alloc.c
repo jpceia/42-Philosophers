@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:03:01 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/29 04:20:37 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/29 04:37:04 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ t_data	*data_setup_public(t_data *data)
 	data->set_stop = semaphore_create("/set_stop", 0);
 	data->print = semaphore_create("/print", 1);
 	data->waiter = semaphore_create("/waiter", 1);
-	data->dying = semaphore_create("/dying", 1);
+	data->set_stop_mutex = semaphore_create("/set_stop_mutex", 1);
 	if (!data->forks || !data->print || !data->set_stop
-		|| !data->waiter || !data->dying)
+		|| !data->waiter || !data->set_stop_mutex)
 	{
 		data_clean(data, "", 1);
 		return (NULL);
@@ -40,7 +40,7 @@ t_data	*data_setup_public(t_data *data)
 t_data	*data_setup_private(t_data *data, int position)
 {
 	data->position = position;
-	pthread_create(&data->thread_stop, NULL, &set_stop, data);
+	pthread_create(&data->thread_stop, NULL, &check_stop, data);
 	pthread_create(&data->thread_starving, NULL, &check_starving, data);
 	return (data);
 }
@@ -73,7 +73,7 @@ int	data_clean(t_data *data, char *err_msg, t_bool unlink)
 	semaphore_close(&data->set_stop, unlink);
 	semaphore_close(&data->print, unlink);
 	semaphore_close(&data->waiter, unlink);
-	semaphore_close(&data->dying, unlink);
+	semaphore_close(&data->set_stop_mutex, unlink);
 	if (err_msg)
 	{
 		perror(err_msg);

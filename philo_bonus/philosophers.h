@@ -47,14 +47,12 @@ typedef struct s_data
 	pid_t		*pid;
 	t_bool		stop;
 
-	// semaphores
 	t_semaphore	*forks;
 	t_semaphore	*print;
 	t_semaphore	*waiter;
 	t_semaphore	*set_stop;
-	t_semaphore *dying;
+	t_semaphore	*set_stop_mutex;
 
-	// threads
 	pthread_t	thread_starving;
 	pthread_t	thread_stop;
 }	t_data;
@@ -88,7 +86,7 @@ void		print_action(t_data *data, t_state state);
  * Actions
  */
 void		routine(t_data *data);
-void		*set_stop(void *ptr);
+void		*check_stop(void *ptr);
 void		*check_starving(void *ptr);
 t_bool		try_eat(t_data *data);
 t_bool		check_if_stop(t_data *data);
