@@ -22,6 +22,7 @@ void	do_die(t_data *data)
 void	do_think(t_data *data)
 {
 	print_action(data, THINK);
+	usleep(1000 * data->time_to_think);
 }
 
 void	do_eat(t_data *data)

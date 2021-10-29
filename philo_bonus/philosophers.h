@@ -38,6 +38,8 @@ typedef struct s_data
 	int			max_meals;
 	int			nb_meals;
 	long		last_meal;
+	float		time_to_think;
+	float		time_to_check;
 	pid_t		*pid;
 	t_semaphore	*forks;
 	t_semaphore	*print;

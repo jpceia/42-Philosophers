@@ -34,6 +34,8 @@ int	main(int argc, char *argv[])
 
 	if (!data_init(&data, argc, argv))
 		return (EXIT_FAILURE);
+	data.time_to_think = 0.1;
+	data.time_to_check = 0.1;
 	index = 0;
 	timestamp();
 	while (index < data.nb_philo)
