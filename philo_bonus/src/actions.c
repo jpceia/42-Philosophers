@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 06:08:21 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/29 04:06:52 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/29 04:22:18 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,16 @@ void	*check_starving(void *ptr)
 	data = (t_data *)ptr;
 	while (timestamp() - data->last_meal < data->time_to_die && !data->stop)
 		usleep(1000 * data->time_to_check);
+	semaphore_wait(data->dying);
 	if (!data->stop)
 	{
 		index = 0;
 		while (index++ < data->nb_philo)
 			semaphore_post(data->set_stop);
 		print_action(data, DEAD);
+		usleep(100);
 	}
+	semaphore_post(data->dying);
 	return (NULL);
 }
 
