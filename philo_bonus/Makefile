@@ -6,7 +6,7 @@
 #    By: jceia <jceia@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/30 04:53:35 by jceia             #+#    #+#              #
-#    Updated: 2021/10/12 12:43:26 by jceia            ###   ########.fr        #
+#    Updated: 2021/10/29 06:15:59 by jceia            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ FLAG_WARN	= -Wall -Wextra -Werror
 FLAG_LIBFT	= -L$(LIBFT_DIR) -lft
 FLAG_INC	= -I$(LIBFT_DIR) -I$(INC_DIR)
 
-CFLAGS		= $(FLAG_WANR) $(FLAG_INC) -pthread -g
+CFLAGS		= $(FLAG_WARN) $(FLAG_INC) -pthread -g
 LDFLAGS		= $(FLAG_LIBFT) -pthread -g
 
 all:		$(NAME)
