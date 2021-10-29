@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:53:03 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/28 18:18:08 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/29 03:51:26 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_bool	one_philo_die(t_data *data)
 {
 	long	t;
 
-	t = data->last_meal + data->time_to_die - get_chrono(data->start_time);
+	t = data->last_meal + data->time_to_die - timestamp();
 	if (t > 0)
 		usleep(t * 1000);
 	do_die(data);
@@ -61,10 +61,7 @@ t_bool	one_philo_die(t_data *data)
 
 t_bool	check_if_dead(t_data *data)
 {
-	long	t;
-
-	t = get_chrono(data->start_time);
-	if (t - data->last_meal > data->time_to_die)
+	if (timestamp() - data->last_meal > data->time_to_die)
 	{
 		do_die(data);
 		return (true);

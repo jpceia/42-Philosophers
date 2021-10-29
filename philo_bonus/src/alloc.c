@@ -46,7 +46,6 @@ t_data	*data_init(t_data *data, int argc, char **argv)
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
-	data->start_time = get_chrono(0);
 	if (argc == 6)
 		data->max_meals = ft_atoi(argv[5]);
 	return (data_setup(data));

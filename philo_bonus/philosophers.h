@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 23:38:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/28 18:18:18 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/29 03:55:39 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ typedef struct s_data
 	int			max_meals;
 	int			nb_meals;
 	long		last_meal;
-	long		start_time;
 	pid_t		*pid;
 	t_semaphore	*forks;
 	t_semaphore	*print;
@@ -49,8 +48,8 @@ t_data		*data_init(t_data *data, int argc, char **argv);
 int			data_clean(t_data *data, char *err_msg, t_bool unlink);
 t_semaphore	*semaphore_create(char *name, int value);
 void		semaphore_close(t_semaphore **p, t_bool unlink);
-void	semaphore_post(t_semaphore *p);
-void	semaphore_wait(t_semaphore *p);
+void		semaphore_post(t_semaphore *p);
+void		semaphore_wait(t_semaphore *p);
 
 typedef enum e_state
 {
@@ -66,7 +65,7 @@ typedef enum e_state
 /*
  * Utils
  */
-long		get_chrono(long start_time);
+long		timestamp(void);
 void		print_action(t_data *data, t_state state);
 
 /*

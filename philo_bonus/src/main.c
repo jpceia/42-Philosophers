@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 10:47:31 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/12 15:58:50 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/29 03:52:01 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	main(int argc, char *argv[])
 	if (!data_init(&data, argc, argv))
 		return (EXIT_FAILURE);
 	index = 0;
+	timestamp();
 	while (index < data.nb_philo)
 		main_loop(&data, index++);
 	index = 0;
