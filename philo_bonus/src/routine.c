@@ -27,39 +27,33 @@ void	routine(t_data *data)
 	}
 }
 
+t_bool	release_exit(t_data *data, int n_forks, int n_waiters)
+{
+	while (n_forks--)
+		semaphore_post(data->forks);
+	while (n_waiters--)
+		semaphore_post(data->waiter);
+	return (false);
+}
+
 t_bool	try_eat(t_data *data)
 {
 	if (data->nb_philo == 1)
 		return (one_philo_die(data));
 	semaphore_wait(data->waiter);
 	if (data->stop)
-	{
-		semaphore_post(data->waiter);
-		return (false);
-	}
+		return (release_exit(data, 0, 1));
 	semaphore_wait(data->forks);
 	if (data->stop)
-	{
-		semaphore_post(data->forks);
-		semaphore_post(data->waiter);
-		return (false);
-	}
+		return (release_exit(data, 1, 1));
 	print_action(data, TAKE_FORK);
 	semaphore_wait(data->forks);
 	if (data->stop)
-	{
-		semaphore_post(data->forks);
-		semaphore_post(data->forks);
-		semaphore_post(data->waiter);
-		return (false);
-	}
+		return (release_exit(data, 2, 1));
 	print_action(data, TAKE_FORK);
 	semaphore_post(data->waiter);
 	if (data->stop)
-	{
-		do_release_forks(data);
-		return (false);
-	}
+		return (release_exit(data, 2, 0));
 	do_eat(data);
 	do_release_forks(data);
 	return (true);
