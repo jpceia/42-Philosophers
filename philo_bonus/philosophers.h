@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 23:38:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/29 03:55:39 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/29 04:02:15 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,17 @@
 # define PHILOSOPHERS_H
 
 # include <semaphore.h>
+# include <pthread.h>
 # include "libft.h"
 
 # define SEM_NAME_1 "/sem1"
 # define SEM_NAME_2 "/sem2"
 
+# define BUF_SIZE	1024
+
 # define MALLOC_ERR		"malloc(3) failed"
 # define SEM_OPEN_ERR	"sem_open(3) error"
+# define FORK_ERR		"fork(2) failed"
 
 typedef struct s_semaphore
 {
@@ -41,12 +45,21 @@ typedef struct s_data
 	float		time_to_think;
 	float		time_to_check;
 	pid_t		*pid;
+	t_bool		stop;
+
+	// semaphores
 	t_semaphore	*forks;
 	t_semaphore	*print;
 	t_semaphore	*waiter;
+	t_semaphore	*set_stop;
+
+	// threads
+	pthread_t	thread_starving;
+	pthread_t	thread_stop;
 }	t_data;
 
 t_data		*data_init(t_data *data, int argc, char **argv);
+t_data		*data_setup_private(t_data *data, int position);
 int			data_clean(t_data *data, char *err_msg, t_bool unlink);
 t_semaphore	*semaphore_create(char *name, int value);
 void		semaphore_close(t_semaphore **p, t_bool unlink);
@@ -74,12 +87,13 @@ void		print_action(t_data *data, t_state state);
  * Actions
  */
 void		routine(t_data *data);
+void		*set_stop(void *ptr);
+void		*check_starving(void *ptr);
 t_bool		try_eat(t_data *data);
-t_bool		check_if_dead(t_data *data);
+t_bool		check_if_stop(t_data *data);
 t_bool		is_satisfied(t_data *data);
 t_bool		one_philo_die(t_data *data);
 
-void		do_die(t_data *data);
 void		do_think(t_data *data);
 void		do_eat(t_data *data);
 void		do_release_forks(t_data *data);
