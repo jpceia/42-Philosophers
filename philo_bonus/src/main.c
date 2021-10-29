@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 10:47:31 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/29 04:02:12 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/29 04:37:49 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@ void	main_loop(t_data *data, int index)
 
 int	main(int argc, char *argv[])
 {
-	int		index;
-	t_data	data;
+	int			index;
+	t_data		data;
+	pthread_t	thread[2];
 
 	if (!data_init(&data, argc, argv))
 		return (EXIT_FAILURE);
@@ -45,12 +46,16 @@ int	main(int argc, char *argv[])
 	data.time_to_check = 0.1;
 	index = 0;
 	timestamp();
+	pthread_create(&thread[0], NULL, &check_stop, &data);
+	pthread_create(&thread[1], NULL, &check_satisfied, &data);
 	while (index < data.nb_philo)
 		main_loop(&data, index++);
 	index = 0;
 	while (index < data.nb_philo)
 		if (waitpid(data.pid[index++], NULL, 0) < 0)
 			perror("waitpid(2) failed");
+	pthread_join(thread[0], NULL);
+	pthread_join(thread[1], NULL);
 	data_clean(&data, NULL, 1);
 	return (EXIT_SUCCESS);
 }

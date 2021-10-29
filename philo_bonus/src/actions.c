@@ -27,6 +27,10 @@ void	do_eat(t_data *data)
 		data->last_meal = timestamp();
 		usleep(data->time_to_eat * 1000);
 		data->nb_meals++;
+		if (data->max_meals > 0 && data->nb_meals == data->max_meals)
+		{
+			semaphore_post(data->satisfied);
+		}
 	}
 }
 

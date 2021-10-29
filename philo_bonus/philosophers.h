@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 23:38:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/29 04:11:58 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/29 04:46:50 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_data
 	t_semaphore	*waiter;
 	t_semaphore	*set_stop;
 	t_semaphore	*set_stop_mutex;
+	t_semaphore	*satisfied;
 
 	pthread_t	thread_starving;
 	pthread_t	thread_stop;
@@ -88,6 +89,7 @@ void		print_action(t_data *data, t_state state);
 void		routine(t_data *data);
 void		*check_stop(void *ptr);
 void		*check_starving(void *ptr);
+void		*check_satisfied(void *ptr);
 t_bool		try_eat(t_data *data);
 t_bool		check_if_stop(t_data *data);
 t_bool		is_satisfied(t_data *data);

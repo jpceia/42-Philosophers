@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:03:01 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/29 04:37:04 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/29 04:55:20 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ t_data	*data_setup_public(t_data *data)
 	data->print = semaphore_create("/print", 1);
 	data->waiter = semaphore_create("/waiter", 1);
 	data->set_stop_mutex = semaphore_create("/set_stop_mutex", 1);
+	data->satisfied = semaphore_create("/satisfied", 0);
 	if (!data->forks || !data->print || !data->set_stop
-		|| !data->waiter || !data->set_stop_mutex)
+		|| !data->waiter || !data->set_stop_mutex
+		|| !data->satisfied)
 	{
 		data_clean(data, "", 1);
 		return (NULL);
@@ -74,6 +76,7 @@ int	data_clean(t_data *data, char *err_msg, t_bool unlink)
 	semaphore_close(&data->print, unlink);
 	semaphore_close(&data->waiter, unlink);
 	semaphore_close(&data->set_stop_mutex, unlink);
+	semaphore_close(&data->satisfied, unlink);
 	if (err_msg)
 	{
 		perror(err_msg);
