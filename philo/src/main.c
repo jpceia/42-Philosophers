@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 18:20:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/24 15:07:49 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/30 19:42:37 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	main(int argc, char *argv[])
 	t_shared	shared;
 	pthread_t	*thread;
 
-	parse_args(&args, argc, argv);
+	if (!parse_args(&args, argc, argv))
+		return (EXIT_FAILURE);
 	args.time_to_think = 0.1;
 	args.time_to_check = 0.1;
 	if (shared_init(&shared, args.nb_philo) < 0)
