@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 23:38:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/29 04:46:50 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/29 05:03:01 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_data
 	int			time_to_die;
 	int			time_to_eat;
 	int			time_to_sleep;
-	int			max_meals;
+	int			meals_must_eat;
 	int			nb_meals;
 	long		last_meal;
 	float		time_to_think;
@@ -52,6 +52,7 @@ typedef struct s_data
 	t_semaphore	*waiter;
 	t_semaphore	*set_stop;
 	t_semaphore	*set_stop_mutex;
+
 	t_semaphore	*satisfied;
 
 	pthread_t	thread_starving;

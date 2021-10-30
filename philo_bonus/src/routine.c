@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:53:03 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/29 04:02:10 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/29 05:02:42 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_bool	one_philo_die(t_data *data)
 
 t_bool	is_satisfied(t_data *data)
 {
-	if (data->max_meals > 0 && data->nb_meals == data->max_meals)
+	if (data->meals_must_eat > 0 && data->nb_meals == data->meals_must_eat)
 	{
 		print_action(data, SATISFIED);
 		return (true);

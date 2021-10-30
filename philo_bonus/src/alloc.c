@@ -60,7 +60,7 @@ t_data	*data_init(t_data *data, int argc, char **argv)
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
-		data->max_meals = ft_atoi(argv[5]);
+		data->meals_must_eat = ft_atoi(argv[5]);
 	return (data_setup_public(data));
 }
 

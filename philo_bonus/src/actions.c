@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 06:08:21 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/29 04:46:58 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/29 05:02:42 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,8 @@ void	do_eat(t_data *data)
 		data->last_meal = timestamp();
 		usleep(data->time_to_eat * 1000);
 		data->nb_meals++;
-		if (data->max_meals > 0 && data->nb_meals == data->max_meals)
-		{
+		if (data->meals_must_eat > 0 && data->nb_meals == data->meals_must_eat)
 			semaphore_post(data->satisfied);
-		}
 	}
 }
 
