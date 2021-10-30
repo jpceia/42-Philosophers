@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 15:08:05 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/24 13:53:23 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/30 19:46:04 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,5 @@ t_bool	check_philosophers_dead(t_shared *shared, t_args *args)
 		}
 		index++;
 	}
-	chrono(args->time_to_check);
 	return (false);
 }

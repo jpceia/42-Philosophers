@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 18:20:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/30 19:42:37 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/30 19:46:19 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,8 @@ int	main(int argc, char *argv[])
 		shared_clean(&shared);
 		return (EXIT_FAILURE);
 	}
-	while (1)
-		if (check_philosophers_dead(&shared, &args))
-			break ;
+	while (!check_philosophers_dead(&shared, &args))
+		chrono(args.time_to_check);
 	threads_join(thread, args.nb_philo);
 	shared_clean(&shared);
 	return (EXIT_SUCCESS);
