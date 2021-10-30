@@ -6,11 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:53:03 by jceia             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/10/28 17:02:49 by jceia            ###   ########.fr       */
-=======
-/*   Updated: 2021/10/29 04:02:10 by jceia            ###   ########.fr       */
->>>>>>> ffd2f5a7ee5e22c845bd3e2fd393f23e58d53e3a
+/*   Updated: 2021/10/30 19:00:31 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +41,6 @@ t_bool	try_eat(t_data *data)
 	if (data->nb_philo == 1)
 		return (one_philo_die(data));
 	semaphore_wait(data->waiter);
-<<<<<<< HEAD
-	semaphore_wait(data->forks);
-	if (check_if_dead(data))
-		return (false);
-	print_action(data, TAKE_FORK);
-	semaphore_wait(data->forks);
-	print_action(data, TAKE_FORK);
-	semaphore_post(data->waiter);
-	if (check_if_dead(data))
-		return (false);
-=======
 	if (data->stop)
 		return (release_exit(data, 0, 1));
 	semaphore_wait(data->forks);
@@ -69,7 +54,6 @@ t_bool	try_eat(t_data *data)
 	semaphore_post(data->waiter);
 	if (data->stop)
 		return (release_exit(data, 2, 0));
->>>>>>> ffd2f5a7ee5e22c845bd3e2fd393f23e58d53e3a
 	do_eat(data);
 	do_release_forks(data);
 	return (true);

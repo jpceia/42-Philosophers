@@ -6,11 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:03:01 by jceia             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/10/28 16:57:58 by jceia            ###   ########.fr       */
-=======
-/*   Updated: 2021/10/29 04:55:20 by jceia            ###   ########.fr       */
->>>>>>> ffd2f5a7ee5e22c845bd3e2fd393f23e58d53e3a
+/*   Updated: 2021/10/30 18:59:38 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +18,6 @@
 t_data	*data_setup_public(t_data *data)
 {
 	data->forks = semaphore_create("/forks", data->nb_philo);
-<<<<<<< HEAD
-	data->print = semaphore_create("/print", 1);
-	data->waiter = semaphore_create("/waiter", 1);
-	if (!data->forks || !data->print || !data->waiter)
-=======
 	data->set_stop = semaphore_create("/set_stop", 0);
 	data->print = semaphore_create("/print", 1);
 	data->waiter = semaphore_create("/waiter", 1);
@@ -35,7 +26,6 @@ t_data	*data_setup_public(t_data *data)
 	if (!data->forks || !data->print || !data->set_stop
 		|| !data->waiter || !data->set_stop_mutex
 		|| !data->satisfied)
->>>>>>> ffd2f5a7ee5e22c845bd3e2fd393f23e58d53e3a
 	{
 		data_clean(data, "", 1);
 		return (NULL);
@@ -82,10 +72,7 @@ int	data_clean(t_data *data, char *err_msg, t_bool unlink)
 		data->pid = NULL;
 	}
 	semaphore_close(&data->forks, unlink);
-<<<<<<< HEAD
-=======
 	semaphore_close(&data->set_stop, unlink);
->>>>>>> ffd2f5a7ee5e22c845bd3e2fd393f23e58d53e3a
 	semaphore_close(&data->print, unlink);
 	semaphore_close(&data->waiter, unlink);
 	semaphore_close(&data->set_stop_mutex, unlink);
