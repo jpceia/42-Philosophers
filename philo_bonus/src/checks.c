@@ -43,7 +43,10 @@ void	*check_starving(void *ptr)
 	{
 		index = 0;
 		while (index++ < data->nb_philo + 1)
+		{
+			semaphore_post(data->satisfied);
 			semaphore_post(data->set_stop);
+		}
 		print_action(data, DEAD);
 		usleep(100);
 	}
