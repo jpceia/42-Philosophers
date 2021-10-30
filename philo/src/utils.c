@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 20:25:20 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/24 12:52:09 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/30 19:38:15 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,14 @@ t_args	*parse_args(t_args *args, int argc, char **argv)
 	args->meals_must_eat = 0;
 	if (argc == 6)
 		args->meals_must_eat = ft_atoi(argv[5]);
+	if (args->nb_philo <= 0 || args->time_to_die <= 0
+		|| args->time_to_eat < 0 || args->time_to_sleep < 0
+		|| args->meals_must_eat < 0)
+	{
+		ft_putstr_error("Invalid parameters, please provide"\
+			" positive integers as arguments\n");
+		return (NULL);
+	}
 	return (args);
 }
 
