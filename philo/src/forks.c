@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 16:42:28 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/24 13:53:49 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/24 15:05:38 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ int	do_take_forks(t_data *data)
 	}
 	print_action(data->position, TAKE_FORK);
 	pthread_mutex_lock(data->fork2);
-	print_action(data->position, TAKE_FORK);
 	if (data->shared->stop)
 	{
 		do_release_forks(data);
 		return (-1);
 	}
+	print_action(data->position, TAKE_FORK);
 	return (0);
 }
