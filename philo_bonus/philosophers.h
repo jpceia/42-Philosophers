@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 23:38:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/30 19:35:21 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/30 19:55:55 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 # define MALLOC_ERR		"malloc(3) failed"
 # define SEM_OPEN_ERR	"sem_open(3) error"
+# define WAITPID_ERR	"waitpid(2) failed"
 # define FORK_ERR		"fork(2) failed"
 
 typedef struct s_semaphore

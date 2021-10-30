@@ -6,7 +6,7 @@
 /*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 10:47:31 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/29 04:37:49 by jceia            ###   ########.fr       */
+/*   Updated: 2021/10/30 19:55:40 by jceia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	main(int argc, char *argv[])
 	index = 0;
 	while (index < data.nb_philo)
 		if (waitpid(data.pid[index++], NULL, 0) < 0)
-			perror("waitpid(2) failed");
+			perror(WAITPID_ERR);
 	pthread_join(thread[0], NULL);
 	pthread_join(thread[1], NULL);
 	data_clean(&data, NULL, 1);
