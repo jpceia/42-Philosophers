@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jceia <jceia@student.42.fr>                +#+  +:+       +#+         #
+#    By: jpceia <joao.p.ceia@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/30 04:53:35 by jceia             #+#    #+#              #
-#    Updated: 2021/10/30 19:24:41 by jceia            ###   ########.fr        #
+#    Updated: 2022/03/10 20:54:42 by jpceia           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ FLAGS_OPT	= -O3
 FLAGS_LIBFT	= -L$(LIBFT_DIR) -lft
 FLAGS_INC	= -I$(LIBFT_DIR) -I$(INC_DIR)
 
-CFLAGS		= $(FLAGS_WANR) $(FLAGS_OPT) $(FLAGS_INC)
+CFLAGS		= $(FLAGS_WARN) $(FLAGS_OPT) $(FLAGS_INC)
 LDFLAGS		= $(FLAGS_LIBFT) $(FLAGS_OPT) -pthread
 
 all:		$(NAME)
