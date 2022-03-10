@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jpceia <joao.p.ceia@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 18:20:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/30 19:46:19 by jceia            ###   ########.fr       */
+/*   Updated: 2022/03/10 20:56:11 by jpceia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,14 @@ int	main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	args.time_to_think = 0.1;
 	args.time_to_check = 0.1;
-	if (shared_init(&shared, args.nb_philo) < 0)
+	if (shared_init(&shared, args.nb_philo) == NULL)
+		return (EXIT_FAILURE);
 	{
 		ft_putstr_error("Error initializing variable\n");
 		shared_clean(&shared);
 		return (EXIT_FAILURE);
 	}
-	if (threads_init(&thread, &shared, &args) < 0)
+	if (threads_init(&thread, &shared, &args) == NULL)
 	{
 		ft_putstr_error("Error initializing threads\n");
 		shared_clean(&shared);
