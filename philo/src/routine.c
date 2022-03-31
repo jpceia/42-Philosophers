@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jpceia <joao.p.ceia@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 15:08:05 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/30 19:46:04 by jceia            ###   ########.fr       */
+/*   Updated: 2022/03/31 18:39:54 by jpceia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ void	*routine(void *ptr)
 			break ;
 		if (do_sleep(data) < 0)
 			break ;
+		pthread_mutex_lock(&data->shared->stop_mutex);
 		if (data->shared->stop)
 			break ;
+		pthread_mutex_unlock(&data->shared->stop_mutex);
 		if (do_think(data) < 0)
 			break ;
 	}
@@ -54,17 +56,22 @@ int	try_eat(t_data *data)
 t_bool	check_philosophers_dead(t_shared *shared, t_args *args)
 {
 	int		index;
+	int		is_dead;
 
 	index = 0;
+	is_dead = 0;
 	while (index < args->nb_philo)
 	{
-		if (shared->last_meal[index] + args->time_to_die < timestamp())
+		pthread_mutex_lock(&shared->last_meal_mutex);
+		is_dead = shared->last_meal[index] + args->time_to_die < timestamp();
+		pthread_mutex_unlock(&shared->last_meal_mutex);
+		if (is_dead)
 		{
 			pthread_mutex_lock(&shared->stop_mutex);
 			if (!shared->stop)
 			{
 				shared->stop = true;
-				print_action(index + 1, DEAD);
+				print_action(index + 1, DEAD, &shared->print_mutex);
 			}
 			pthread_mutex_unlock(&shared->stop_mutex);
 			return (true);

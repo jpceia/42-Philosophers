@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jpceia <joao.p.ceia@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 20:25:20 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/30 19:38:15 by jceia            ###   ########.fr       */
+/*   Updated: 2022/03/31 18:40:37 by jpceia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,13 @@ char	*state_message(t_state state)
 	return ("(unkown action)");
 }
 
-void	print_action(int position, t_state state)
+void	print_action(int position, t_state state, pthread_mutex_t *mtx)
 {
 	char	*s;
 	char	msg[BUF_SIZE];
 
 	msg[0] = '\0';
+	pthread_mutex_lock(mtx);
 	s = ft_itoa((int)timestamp());
 	ft_strlcat(msg, s, BUF_SIZE);
 	free(s);
@@ -95,4 +96,5 @@ void	print_action(int position, t_state state)
 	ft_strlcat(msg, s, BUF_SIZE);
 	ft_strlcat(msg, "\n", BUF_SIZE);
 	ft_putstr(msg);
+	pthread_mutex_unlock(mtx);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jpceia <joao.p.ceia@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 23:38:19 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/24 14:05:07 by jceia            ###   ########.fr       */
+/*   Updated: 2022/03/31 18:41:02 by jpceia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef struct s_shared
 	pthread_mutex_t	stop_mutex;
 	t_bool			stop;
 
+	pthread_mutex_t	print_mutex;
+
 	pthread_mutex_t	*forks;
 
 	int				nb_philo;
@@ -89,7 +91,7 @@ typedef struct s_data
 t_args			*parse_args(t_args *args, int argc, char **argv);
 long			timestamp(void);
 void			chrono(float t);
-void			print_action(int position, t_state state);
+void			print_action(int position, t_state state, pthread_mutex_t *mtx);
 
 /*
  * Routine

@@ -6,7 +6,7 @@
 #    By: jpceia <joao.p.ceia@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/30 04:53:35 by jceia             #+#    #+#              #
-#    Updated: 2022/03/10 20:54:42 by jpceia           ###   ########.fr        #
+#    Updated: 2022/03/31 17:26:32 by jpceia           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ CC			= gcc
 RM			= rm -f
 
 FLAGS_WARN	= -Wall -Wextra -Werror
-FLAGS_DEBUG	= -g -fsanitize=address
+FLAGS_DEBUG	= -g -fsanitize=thread
 FLAGS_OPT	= -O3
 FLAGS_LIBFT	= -L$(LIBFT_DIR) -lft
 FLAGS_INC	= -I$(LIBFT_DIR) -I$(INC_DIR)

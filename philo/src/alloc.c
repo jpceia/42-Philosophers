@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alloc.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jpceia <joao.p.ceia@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 01:59:06 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/24 12:33:00 by jceia            ###   ########.fr       */
+/*   Updated: 2022/03/31 18:29:49 by jpceia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_shared	*shared_init(t_shared *shared, int nb_philo)
 	if (!mutex_array_init(&shared->forks, nb_philo))
 		return (NULL);
 	pthread_mutex_init(&shared->stop_mutex, NULL);
+	pthread_mutex_init(&shared->print_mutex, NULL);
 	pthread_mutex_init(&shared->satisfied_mutex, NULL);
 	pthread_mutex_init(&shared->last_meal_mutex, NULL);
 	return (shared);
@@ -38,6 +39,7 @@ t_shared	*shared_init(t_shared *shared, int nb_philo)
 void	shared_clean(t_shared *shared)
 {
 	pthread_mutex_destroy(&shared->stop_mutex);
+	pthread_mutex_destroy(&shared->print_mutex);
 	pthread_mutex_destroy(&shared->satisfied_mutex);
 	pthread_mutex_destroy(&shared->last_meal_mutex);
 	if (shared->forks)

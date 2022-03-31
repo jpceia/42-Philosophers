@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jpceia <joao.p.ceia@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 16:42:28 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/24 15:05:38 by jceia            ###   ########.fr       */
+/*   Updated: 2022/03/31 18:32:36 by jpceia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ int	do_take_forks(t_data *data)
 		pthread_mutex_unlock(data->fork1);
 		return (-1);
 	}
-	print_action(data->position, TAKE_FORK);
+	print_action(data->position, TAKE_FORK, &data->shared->print_mutex);
 	pthread_mutex_lock(data->fork2);
 	if (data->shared->stop)
 	{
 		do_release_forks(data);
 		return (-1);
 	}
-	print_action(data->position, TAKE_FORK);
+	print_action(data->position, TAKE_FORK, &data->shared->print_mutex);
 	return (0);
 }

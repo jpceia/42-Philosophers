@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jceia <jceia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jpceia <joao.p.ceia@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 06:08:21 by jceia             #+#    #+#             */
-/*   Updated: 2021/10/24 13:53:29 by jceia            ###   ########.fr       */
+/*   Updated: 2022/03/31 18:32:29 by jpceia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	do_eat(t_data *data)
 	pthread_mutex_lock(&data->shared->last_meal_mutex);
 	data->shared->last_meal[data->position - 1] = data->last_meal;
 	pthread_mutex_unlock(&data->shared->last_meal_mutex);
-	print_action(data->position, EAT);
+	print_action(data->position, EAT, &data->shared->print_mutex);
 	chrono(data->time_to_eat);
 	data->nb_meals++;
 	if (data->meals_must_eat > 0 && data->nb_meals == data->meals_must_eat)
@@ -45,14 +45,14 @@ int	do_eat(t_data *data)
 
 int	do_think(t_data *data)
 {
-	print_action(data->position, THINK);
+	print_action(data->position, THINK, &data->shared->print_mutex);
 	chrono(data->time_to_think);
 	return (0);
 }
 
 int	do_sleep(t_data *data)
 {
-	print_action(data->position, SLEEP);
+	print_action(data->position, SLEEP, &data->shared->print_mutex);
 	chrono(data->time_to_sleep);
 	return (0);
 }
